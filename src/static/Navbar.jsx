@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import '../styles/Navbar.css';
 
 function Navbar({ title, links, isAuthenticated, onLogout }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated);
   const [showDropdown, setShowDropdown] = useState(false);
 
   const handleToggleDropdown = () => {
-  setShowDropdown(!showDropdown);
-  if (isAuthenticated) {
-    setIsLoggedIn(true);
-  }
-};
+    setShowDropdown(!showDropdown);
+    if (isAuthenticated) {
+      setIsLoggedIn(true);
+    }
+  };
 
-  const handleLogout = () => {
-    setShowDropdown(false);
-    onLogout();
+  useEffect(() => {
+    setIsLoggedIn(isAuthenticated);
+  }, [isAuthenticated]);
+
+  const handleLogout = async () => {
+    try {
+      setShowDropdown(false);
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      onLogout();
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const handleSearchSubmit = (event) => {

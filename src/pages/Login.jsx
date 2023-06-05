@@ -1,36 +1,43 @@
+import { useState, useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
-import { supabase } from '../services/supabase';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { ThemeSupa } from '@supabase/auth-ui-shared'
+import { supabase } from '../services/supabase'
 
-const Login = ({ onLogin, isAuthenticated }) => {
-  const handleLogin = () => {
-    onLogin();
-  };
+function Login(){
+  const [session, setSession] = useState(null)
 
-  const handleLogout = async () => {
-    try {
-      await supabase.auth.signOut();
-      onLogin(false);
-    } catch (error) {
-      console.error(error);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  useEffect(() => {
+    if (session) {
+      window.location.href = '/';
     }
-  };
+  }, [session]);
 
-  return (
-    <div>
-      {isAuthenticated ? (
-        <button onClick={handleLogout}>Logout</button>
-      ) : (
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ theme: ThemeSupa }}
-          providers={['discord', 'google', 'github']}
-          onAuthSuccess={handleLogin}
-          onAuthFailure={() => console.log('login failed')}
-        />
-      )}
-    </div>
-  );
+  if (!session) {
+    return (
+      <Auth 
+        supabaseClient={supabase} 
+        appearance={{ theme: ThemeSupa }}
+        providers={['discord', 'google', 'github']}
+      />
+    )
+  }
+  else {
+    return (<div>Logged in!</div>)
+  }
 };
 
 export default Login;

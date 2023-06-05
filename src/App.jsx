@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 
 import Navbar from './static/Navbar';
 import Footer from './static/Footer';
@@ -15,17 +14,22 @@ import Account from './pages/Account';
 import './App.css';
 
 const App = () => {
-  const history = createBrowserHistory();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchMessage, setSearchMessage] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = (session) => {
     setIsAuthenticated(true);
+    console.log(`${session.user.user_metadata.full_name} (${session.user.email}) has signed in.`);
   };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      setIsAuthenticated(false);
+      console.log('User has signed out.');
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   const links = [
@@ -38,44 +42,31 @@ const App = () => {
   ];
 
   const getRouteComponent = () => {
-    switch (window.location.pathname) {
-      case '/':
-        return <Home />;
-      case '/birds':
-        return <Birds />;
-      case '/photos':
-        return <Photos />;
-      case '/quiz':
-        return <Quiz />;
-      case '/about':
-        return <About />;
-      case '/login':
-        return <Login onLogin={handleLogin} />;
-      default:
-        return <h1>404 - Page not found</h1>;
+    switch (window.location.path) {
+        // Add routes here
     }
   };
 
   return (
     <BrowserRouter>
-      <div>
-        <Navbar
-          title="Avian Explorer"
-          links={links}
-          isAuthenticated={isAuthenticated}
-          onLogout={handleLogout}
-        />
+      <Navbar
+        title="Birds"
+        links={links}
+        isAuthenticated={isAuthenticated}
+        onLogout={handleLogout} // We're passing the handleLogout function as a prop here
+      />
+      <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/birds" element={<Birds  />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/birds" element={<Birds />} />
           <Route path="/photos" element={<Photos />} />
           <Route path="/quiz" element={<Quiz />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/login" element={<Login  onLogin={handleLogin} />} />
-          <Route component={() => <h1>404 - Page not found</h1>} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/account" element={<Account isAuthenticated={isAuthenticated} />} />
         </Routes>
-        <Footer year={new Date().getFullYear()} />
-      </div>
+      </main>
+      <Footer />
     </BrowserRouter>
   );
 };
