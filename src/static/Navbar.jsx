@@ -1,45 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '../services/supabase';
 import '../styles/Navbar.css';
 
-function Navbar({ title, links, isAuthenticated, onLogout }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated);
+function Navbar({ title, links, session }) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const navigate = useNavigate();
+  
+  const handleAuth = async () => {
+    if(session) {
+      // Do logout through supabase.auth.signOut()
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        // Handle sign-out error
+      }
+    } else {
+      // Do login through supabase.auth.signIn()
+      navigate('/login');
+    }
+  };
 
   const handleToggleDropdown = () => {
     setShowDropdown(!showDropdown);
-    if (isAuthenticated) {
-      setIsLoggedIn(true);
-    }
-  };
-
-  useEffect(() => {
-    setIsLoggedIn(isAuthenticated);
-  }, [isAuthenticated]);
-
-  const handleLogout = async () => {
-    try {
-      setShowDropdown(false);
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      onLogout();
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    const term = event.target[0].value.trim();
-    onSearchSubmit(term);
   };
 
   return (
     <nav>
       <ul className="navbar-list">
         <li className="navbar-title">
-          <img className='bird-logo' src='../src/images/bird_logo.png' alt='Bird Logo' />
+          <img className="bird-logo" src="../src/images/bird_logo.png" alt="Bird Logo" />
           <Link to="/">{title}</Link>
         </li>
         {links.map((link, index) => (
@@ -49,26 +39,16 @@ function Navbar({ title, links, isAuthenticated, onLogout }) {
         ))}
         <div className="navbar-user">
           <button className="navbar-user-button" onClick={handleToggleDropdown}>
-            <FaUser /> 
+            <FaUser />
           </button>
           {showDropdown && (
-            <div className="navbar-dropdown">
-              {!isLoggedIn && !isAuthenticated && (
-                <Link to="/login">
-                  <button className="navbar-dropdown-link">Sign In</button>
-                </Link>
-              )}
-              {isLoggedIn && (
-                <div>
-                  <Link to="/account">
-                    <button className="navbar-dropdown-link">View Account</button>
-                  </Link>
-                  <button className="navbar-dropdown-link" onClick={handleLogout}>
-                    Sign Out
-                  </button>
-                </div>
-              )}
-            </div>
+            <ul className="navbar-dropdown">
+              <li>
+                <button className="navbar-dropdown-button" onClick={handleAuth}>
+                  {session ? 'Sign Out' : 'Sign In'}
+                </button>
+              </li>
+            </ul>
           )}
         </div>
       </ul>
