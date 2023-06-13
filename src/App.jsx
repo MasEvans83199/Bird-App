@@ -18,8 +18,7 @@ const App = () => {
     { title: 'Birds', href: '/birds' },
     { title: 'Photos', href: '/photos' },
     { title: 'Quiz', href: '/quiz' },
-    { title: 'About', href: '/about' },
-    { title: 'Account', href: '/account' },
+    { title: 'About', href: '/about' }
   ];
 
   const [session, setSession] = useState(null);
@@ -48,7 +47,7 @@ const App = () => {
           <Route path="/photos" element={<Photos />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/account" element={<Account />} />
+          <Route path="/account" element={<Account session={session} />} />
         </Routes>
       </main>
       <Footer />

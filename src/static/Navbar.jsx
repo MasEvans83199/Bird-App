@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { FaUser } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabase';
 import '../styles/Navbar.css';
+import Avatar from '../pages/Avatar';
+import defaultAvatar from '../assets/default_icon.png';
 
 function Navbar({ title, links, session }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
-  
+
   const handleAuth = async () => {
-    if(session) {
-      // Do logout through supabase.auth.signOut()
+    if (session) {
       const { error } = await supabase.auth.signOut();
       if (error) {
         // Handle sign-out error
       }
     } else {
-      // Do login through supabase.auth.signIn()
       navigate('/login');
     }
   };
@@ -39,7 +38,19 @@ function Navbar({ title, links, session }) {
         ))}
         <div className="navbar-user">
           <button className="navbar-user-button" onClick={handleToggleDropdown}>
-            <FaUser />
+            {session?.user?.avatar_url ? (
+              <img
+                className="navbar-user-avatar"
+                src={session.user.avatar_url}
+                alt="User Avatar"
+              />
+            ) : (
+              <img
+                className="navbar-user-avatar"
+                src={defaultAvatar}
+                alt="Default Avatar"
+              />
+            )}
           </button>
           {showDropdown && (
             <ul className="navbar-dropdown">
@@ -48,6 +59,7 @@ function Navbar({ title, links, session }) {
                   {session ? 'Sign Out' : 'Sign In'}
                 </button>
               </li>
+              <li>{session && <Link to="/account">Account</Link>}</li>
             </ul>
           )}
         </div>

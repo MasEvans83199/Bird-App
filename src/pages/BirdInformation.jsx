@@ -1,39 +1,34 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from '../services/supabase';
 
-const BirdInformation = ({ bird }) => {
+const BirdInformation = () => {
+  const [birdList, setBirdList] = useState([]);
+
+  useEffect(() => {
+    const fetchBirdList = async () => {
+      const { data } = await supabase.from('birds').select('*');
+      setBirdList(data);
+    };
+
+    fetchBirdList();
+  }, []);
+
   return (
     <div>
-      <h3>{bird.genus} {bird.species}</h3>
-      <div>
-        <h4>Appearance</h4>
-        <p>{bird.appearance}</p>
-      </div>
-      <div>
-        <h4>Range</h4>
-        <p>{bird.range}</p>
-      </div>
-      <div>
-        <h4>Habitat</h4>
-        <p>{bird.habitat}</p>
-      </div>
-      <div>
-        <h4>Diet</h4>
-        <p>{bird.diet}</p>
-      </div>
-      <div>
-        <h4>Behavior</h4>
-        <p>{bird.behavior}</p>
-      </div>
-      <div>
-        <h4>Conservation</h4>
-        <p>{bird.conservation}</p>
-      </div>
-      {bird.funFact && (
-        <div>
-          <h4>Fun Fact:</h4>
-          <p>{bird.funFact}</p>
+      {birdList.map(bird => (
+        <div key={bird.id}>
+          <h2>{bird.name}</h2>
+          <img src={bird.photo} alt={`${bird.name} photo`} />
+          <p><strong>Scientific Name:</strong> {bird.genus} {bird.species}</p>
+          <p><strong>Appearance:</strong> {bird.appearance}</p>
+          <p><strong>Range:</strong> {bird.range}</p>
+          <p><strong>Habitat:</strong> {bird.habitat}</p>
+          <p><strong>Diet:</strong> {bird.diet}</p>
+          <p><strong>Behavior:</strong> {bird.behavior}</p>
+          <p><strong>Conservation:</strong> {bird.conservation}</p>
+          <p><strong>Fun Fact:</strong> {bird.funfact}</p>
         </div>
-      )}
+      ))}
     </div>
   );
 };
