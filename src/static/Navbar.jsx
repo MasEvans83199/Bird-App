@@ -1,13 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabase';
 import '../styles/Navbar.css';
-import Avatar from '../pages/Avatar';
 import defaultAvatar from '../assets/default_icon.png';
 
 function Navbar({ title, links, session }) {
   const [showDropdown, setShowDropdown] = useState(false);
+  const [avatarUrl, setAvatarUrl] = useState('');
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAvatar = async () => {
+      try {
+        if (session && session.user) {
+          const { data: profile, error } = await supabase
+            .from('profiles')
+            .select('avatar_url')
+            .eq('id', session.user.id)
+            .single();
+
+          if (error) {
+            throw error;
+          }
+
+          if (profile) {
+            setAvatarUrl(profile.avatar_url);
+          }
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    fetchAvatar();
+  }, [session]);
 
   const handleAuth = async () => {
     if (session) {
@@ -38,10 +65,10 @@ function Navbar({ title, links, session }) {
         ))}
         <div className="navbar-user">
           <button className="navbar-user-button" onClick={handleToggleDropdown}>
-            {session?.user?.avatar_url ? (
+            {avatarUrl ? (
               <img
                 className="navbar-user-avatar"
-                src={session.user.avatar_url}
+                src={avatarUrl}
                 alt="User Avatar"
               />
             ) : (
@@ -54,12 +81,12 @@ function Navbar({ title, links, session }) {
           </button>
           {showDropdown && (
             <ul className="navbar-dropdown">
-              <li>
+              <li className='drop-item'>
                 <button className="navbar-dropdown-button" onClick={handleAuth}>
                   {session ? 'Sign Out' : 'Sign In'}
                 </button>
               </li>
-              <li>{session && <Link to="/account">Account</Link>}</li>
+              <li className='drop-item'>{session && <Link to="/account">Account</Link>}</li>
             </ul>
           )}
         </div>

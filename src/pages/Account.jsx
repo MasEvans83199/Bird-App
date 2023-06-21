@@ -7,7 +7,7 @@ export default function Account({ session }) {
   const [loading, setLoading] = useState(true);
   const [username, setUsername] = useState(null);
   const [website, setWebsite] = useState(null);
-  const [avatar_url, setAvatarUrl] = useState(null);
+  const [avatarUrl, setAvatarUrl] = useState(null);
 
   useEffect(() => {
     async function getProfile() {
@@ -44,7 +44,7 @@ export default function Account({ session }) {
       id: user.id,
       username,
       website,
-      avatar_url,
+      avatar_url: avatarUrl,
       updated_at: new Date(),
     };
 
@@ -54,6 +54,31 @@ export default function Account({ session }) {
       alert(error.message);
     }
     setLoading(false);
+  }
+
+  async function handleAvatarUpload(event) {
+    try {
+      if (!event.target.files || event.target.files.length === 0) {
+        throw new Error('You must select an image to upload.');
+      }
+
+      const file = event.target.files[0];
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random()}.${fileExt}`;
+      const storagePath = `${fileName}`;
+
+      let { data, error } = await supabase.storage
+        .from('avatars')
+        .upload(storagePath, file);
+
+      if (error) {
+        throw error;
+      }
+
+      setAvatarUrl(`https://ycfcamxsouvagmrltkbj.supabase.co/storage/v1/object/public/avatars/${storagePath}`);
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   return (
@@ -82,12 +107,9 @@ export default function Account({ session }) {
         />
       </div>
       <Avatar
-        url={avatar_url}
+        url={avatarUrl}
         size={150}
-        onUpload={(event, url) => {
-          setAvatarUrl(url);
-          updateProfile(event);
-        }}
+        onUpload={handleAvatarUpload}
       />
       <div>
         <button className="button block primary" type="submit" disabled={loading}>

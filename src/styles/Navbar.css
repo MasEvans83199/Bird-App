@@ -34,6 +34,7 @@
   align-content: center;
   color: #5e5d5c;
   transition: all 0.2s ease-out;
+  text-shadow: 2px 2px #d7ffd1;
 }
 
 .navbar-link a:hover {
@@ -47,4 +48,21 @@
 
 .navbar-search input {
   text-decoration: none;
+}
+
+.navbar-user-button {
+  background-color: rgba(0,0,0,1);
+  border-radius: 80px;
+}
+
+.navbar-user-avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  
+}
+
+.drop-item {
+  text-decoration: none;
+  display: flex;
 }

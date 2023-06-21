@@ -3,3 +3,57 @@
   font-size: 18px;
   padding: 20px;
 }
+
+.button.primary.block{
+  background-color: #347c39;
+  color: #ebebeb;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.submit-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.submit-form label {
+  display: block;
+}
+
+.submit-form .input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.submit-form input,
+.submit-form textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.submit-form button[type="submit"] {
+  grid-column: span 2; /* Make the submit button span across all two columns */
+  background-color: #347c39;
+  color: #ebebeb;
+  border-radius: 5px;
+  padding: 10px 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: flex-end; /* Align the button to the right */
+}
+
+
+

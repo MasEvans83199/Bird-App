@@ -34,7 +34,7 @@ function BirdImage({ size, url, onUpload, uploading }) {
     <div>
       <img
         src={src}
-        alt="Bird Image"
+        alt=""
         className="bird image"
         style={{ width: size, height: size }}
       />

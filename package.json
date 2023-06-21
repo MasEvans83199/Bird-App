@@ -23,6 +23,8 @@
     "backblaze-b2": "^1.7.0",
     "history": "^5.3.0",
     "lodash": "^4.17.21",
+    "react-bootstrap": "^2.7.4",
+    "react-flip-toolkit": "^7.1.0",
     "react-icons": "^4.9.0",
     "react-router-dom": "^6.11.2",
     "uuid": "^9.0.0"
