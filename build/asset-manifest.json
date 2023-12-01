@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/@MasEvans83199/Bird-Website-JS-1/static/css/main.00da1133.css",
+    "main.js": "/@MasEvans83199/Bird-Website-JS-1/static/js/main.f0a403a7.js",
+    "static/media/section-one.png": "/@MasEvans83199/Bird-Website-JS-1/static/media/section-one.43970281ac5891c19461.png",
+    "static/media/hero-image.png": "/@MasEvans83199/Bird-Website-JS-1/static/media/hero-image.c275515e358127f06f57.png",
+    "static/media/default_icon.png": "/@MasEvans83199/Bird-Website-JS-1/static/media/default_icon.7a6a6c54279a54d1977c.png",
+    "index.html": "/@MasEvans83199/Bird-Website-JS-1/index.html",
+    "main.00da1133.css.map": "/@MasEvans83199/Bird-Website-JS-1/static/css/main.00da1133.css.map",
+    "main.f0a403a7.js.map": "/@MasEvans83199/Bird-Website-JS-1/static/js/main.f0a403a7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.00da1133.css",
+    "static/js/main.f0a403a7.js"
+  ]
+}

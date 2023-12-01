@@ -91,4 +91,9 @@ function animate({ from, to, duration, onUpdate, onComplete }) {
   };
 }
 
-export { animate, applyTransformToBounds, getInvertedTransform, removeTransformFromBounds };
+export {
+  animate,
+  applyTransformToBounds,
+  getInvertedTransform,
+  removeTransformFromBounds,
+};
