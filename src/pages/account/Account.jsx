@@ -268,7 +268,7 @@ export default function Account({ session }) {
               </Button>
               <Button onClick={() => supabase.auth.signOut()}>Sign Out</Button>
               <Button>
-                <Link to="/">Back to Home</Link>
+                <Link to="#/">Back to Home</Link>
               </Button>
             </ButtonGroup>
           </form>

@@ -409,7 +409,7 @@ function Posts({ session }) {
           )}
         </CardBody>
         <CardFooter className="border-t">
-          <Link to="/thread">
+          <Link to="#/thread">
             <Button color="deep-orange">Back to Forum</Button>
           </Link>
         </CardFooter>

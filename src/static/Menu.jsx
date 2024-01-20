@@ -45,12 +45,12 @@ import "../App.css";
 const navListMenuItems = [
   {
     title: "Birds",
-    href: "/birds",
+    href: "#/birds",
     description: "Learn about different types of birds",
   },
   {
     title: "Photos",
-    href: "/photos",
+    href: "#/photos",
     description: "Browse a photo gallery of birds",
   },
   {
@@ -112,7 +112,7 @@ function ProfileMenu({ session }) {
         throw error;
       }
     } else {
-      navigate("/login");
+      navigate("#/login");
     }
   };
 
@@ -121,7 +121,7 @@ function ProfileMenu({ session }) {
       ? [
           {
             label: "My Account",
-            href: "/account",
+            href: "#/account",
             icon: UserCircleIcon,
           },
           {
@@ -133,7 +133,7 @@ function ProfileMenu({ session }) {
       : [
           {
             label: "Sign In",
-            href: "/login",
+            href: "#/login",
             icon: UserCircleIcon,
           },
         ];
@@ -280,12 +280,12 @@ const navListItems = [
   {
     label: "Home",
     icon: HomeIcon,
-    href: "/",
+    href: "#/",
   },
   {
     label: "Bird Chat",
     icon: ChatBubbleBottomCenterTextIcon,
-    href: "/thread",
+    href: "#/thread",
   },
 ];
 
@@ -548,7 +548,7 @@ function ComplexNavbar({ session }) {
       variant="gradient"
     >
       <div className="relative mx-auto flex items-center">
-        <Link to="/" className="text-stone-950">
+        <Link to="#/" className="text-stone-950">
           <img
             className="h-24 w-32 -ml-4 -my-6 rounded-full object-cover object-center"
             src="src/images/bird_logo.png"

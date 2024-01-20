@@ -15,7 +15,7 @@ const Hero = () => {
           Look through an expansive catalog of birds, where you can learn about
           their names, behaviors, appearance, calls, and so much more!
         </Typography>
-        <Link to="/birds">
+        <Link to="#/birds">
           <Button size="lg" color="light-blue">
             <span>Explore Birds</span>
           </Button>

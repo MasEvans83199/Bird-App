@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { supabase } from "./services/supabase";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {BrowserRouter, Route, Routes } from "react-router-dom";
 import Menu from "./static/Menu";
 import Footer from "./static/footer/Footer";
 import Home from "./pages//home/Home";

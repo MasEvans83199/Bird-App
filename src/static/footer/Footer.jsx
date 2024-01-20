@@ -8,8 +8,8 @@ import {
 } from "@material-tailwind/react";
 
 const links = [
-  { text: "About Us", url: "/about" },
-  { text: "Contact Us", url: "/contact" },
+  { text: "About Us", url: "#/about" },
+  { text: "Contact Us", url: "#/contact" },
 ];
 
 const current_year = new Date().getFullYear();

@@ -17,7 +17,7 @@ const SectionOne = () => {
           Here, you can browse a gallery of the most beautiful birds in the
           world. You will be able to see birds from all over the world!
         </Typography>
-        <Link to="/photos">
+        <Link to="#/photos">
           <Button size="lg" color="light-blue">
             <span>Browse Gallery</span>
           </Button>

@@ -512,7 +512,7 @@ function Thread({ session }) {
                     {formatDateTime(post.created_at)}
                   </Typography>
                 </div>
-                <Link to={`/post/${post.id}`}>
+                <Link to={`#/post/${post.id}`}>
                   <Button
                     size="sm"
                     color="light-blue"
