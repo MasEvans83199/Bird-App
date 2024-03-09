@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/@MasEvans83199/Bird-Website-JS-1/static/css/main.00da1133.css",
-    "main.js": "/@MasEvans83199/Bird-Website-JS-1/static/js/main.f0a403a7.js",
-    "static/media/section-one.png": "/@MasEvans83199/Bird-Website-JS-1/static/media/section-one.43970281ac5891c19461.png",
-    "static/media/hero-image.png": "/@MasEvans83199/Bird-Website-JS-1/static/media/hero-image.c275515e358127f06f57.png",
-    "static/media/default_icon.png": "/@MasEvans83199/Bird-Website-JS-1/static/media/default_icon.7a6a6c54279a54d1977c.png",
-    "index.html": "/@MasEvans83199/Bird-Website-JS-1/index.html",
-    "main.00da1133.css.map": "/@MasEvans83199/Bird-Website-JS-1/static/css/main.00da1133.css.map",
-    "main.f0a403a7.js.map": "/@MasEvans83199/Bird-Website-JS-1/static/js/main.f0a403a7.js.map"
+    "main.css": "/Bird-App/static/css/main.e239ae9a.css",
+    "main.js": "/Bird-App/static/js/main.23b8803c.js",
+    "static/media/section-one.png": "/Bird-App/static/media/section-one.43970281ac5891c19461.png",
+    "static/media/hero-image.png": "/Bird-App/static/media/hero-image.c275515e358127f06f57.png",
+    "static/media/default_icon.png": "/Bird-App/static/media/default_icon.7a6a6c54279a54d1977c.png",
+    "index.html": "/Bird-App/index.html",
+    "main.e239ae9a.css.map": "/Bird-App/static/css/main.e239ae9a.css.map",
+    "main.23b8803c.js.map": "/Bird-App/static/js/main.23b8803c.js.map"
   },
   "entrypoints": [
-    "static/css/main.00da1133.css",
-    "static/js/main.f0a403a7.js"
+    "static/css/main.e239ae9a.css",
+    "static/js/main.23b8803c.js"
   ]
 }
