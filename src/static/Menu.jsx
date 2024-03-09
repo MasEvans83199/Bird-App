@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { supabase } from "../services/supabase";
+import { supabase } from "../services/supabase.js";
 import defaultAvatar from "../assets/default_icon.png";
 import { GiKiwiBird } from "react-icons/gi";
 import {
