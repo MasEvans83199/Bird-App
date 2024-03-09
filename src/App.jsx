@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { supabase } from "./services/supabase";
-import {BrowserRouter, Route, Routes } from "react-router-dom";
+import {HashRouter, Route, Routes } from "react-router-dom";
 import Menu from "./static/Menu";
 import Footer from "./static/footer/Footer";
 import Home from "./pages//home/Home";
@@ -76,7 +76,7 @@ const App = () => {
   }, [session]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div>
         <Menu title="Beak to Basics" links={links} session={session} />
         <main>
@@ -110,7 +110,7 @@ const App = () => {
         </main>
         <Footer />
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 
