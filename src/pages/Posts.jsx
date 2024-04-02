@@ -35,7 +35,6 @@ function Posts({ session }) {
   const [newReplyTo, setNewReplyTo] = useState("");
   const [openReplies, setOpenReplies] = useState({});
 
-  // Fetch the post data based on postId
   useEffect(() => {
     async function fetchPost() {
       try {
@@ -142,13 +141,13 @@ function Posts({ session }) {
   const handleReplySubmit = async (event, specificReplyId = null) => {
     event.preventDefault();
     try {
-      // Check if mainReply is empty for the main post
+      
       if (!mainReply && !replyTo && !specificReplyId) {
         console.error("Please enter a reply for the post.");
         return;
       }
 
-      // Check if newReplyTo is empty for a reply to a reply
+      
       if (!newReplyTo && (replyTo || specificReplyId)) {
         console.error("Please enter a reply to this reply.");
         return;
@@ -228,9 +227,9 @@ function Posts({ session }) {
 
 
   const handleReplyTo = (replyId) => {
-    setReplyTo(null); // Reset replyTo for main reply
-    setNewReplyTo(""); // Reset newReplyTo for main reply
-    setReplyTo(replyId); // Set replyTo for specific reply
+    setReplyTo(null); 
+    setNewReplyTo(""); 
+    setReplyTo(replyId); 
   };
 
 
@@ -294,7 +293,6 @@ function Posts({ session }) {
                 onClick={() => toggleReplyTextarea(reply.id)}
               />
             </div>
-            {/* Render the reply text */}
             <Typography variant="paragraph" className="text-left mb-2 ml-2">
               {reply.reply}
             </Typography>
@@ -323,8 +321,7 @@ function Posts({ session }) {
   };
   
   const calculateIndentation = (level) => {
-    // Set the base indentation and increase it for each level of nesting
-    const baseIndentation = 2; // You can adjust this value based on your design
+    const baseIndentation = 2; 
     return `${baseIndentation + level * 2}rem`;
   };
 

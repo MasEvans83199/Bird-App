@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createClient } from '@supabase/supabase-js'
 import defaultAvatar from "../assets/default_icon.png";
+import logo from "../images/bird_logo.png"
 import { GiKiwiBird } from "react-icons/gi";
+import Switcher from "./Switcher";
 import {
   Avatar,
   Badge,
@@ -34,11 +36,9 @@ import {
   PowerIcon,
   RocketLaunchIcon,
   Bars2Icon,
-  MoonIcon,
-  SunIcon,
 } from "@heroicons/react/24/outline";
 
-import { BellIcon } from "@heroicons/react/24/solid";
+import { BellIcon, SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 
 import "../App.css";
 
@@ -177,27 +177,27 @@ function ProfileMenu({ session }) {
           />
         </Button>
       </MenuHandler>
-      <MenuList className="p-1">
+      <MenuList className="p-1 dark:bg-blue-gray-900 dark:border-blue-gray-800">
         {profileMenuItems.map(({ label, href, onClick, icon }, key) => {
           const isLastItem = key === profileMenuItems.length - 1;
           return (
             <Link to={href} key={label}>
               <MenuItem
                 onClick={closeMenu}
-                className={`flex items-center gap-2 rounded ${
+                className={`flex items-center gap-2 rounded dark:text-white dark:hover:bg-blue-gray-700${
                   isLastItem
-                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10 dark:hover:bg-blue-gray-700"
                     : ""
                 }`}
               >
                 {React.createElement(icon, {
-                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                  className: `h-4 w-4 ${isLastItem ? "text-red-500 dark:text-red-700" : ""}`,
                   strokeWidth: 2,
                 })}
                 <Typography
                   as="span"
                   variant="small"
-                  className="font-normal"
+                  className={`font-normal${isLastItem ? " text-red-500 dark:text-red-700" : ""}`}
                   color={isLastItem ? "red" : "inherit"}
                   onClick={isLastItem ? () => supabase.auth.signOut() : null}
                 >
@@ -223,11 +223,11 @@ function NavListMenu() {
   const renderItems = navListMenuItems.map(
     ({ title, href, description }, key) => (
       <Link to={href} key={key}>
-        <MenuItem>
-          <Typography variant="h6" color="blue-gray" className="mb-1">
+        <MenuItem className="dark:bg-blue-gray-900 dark:hover:bg-blue-gray-800">
+          <Typography variant="h6" color="blue-gray" className="mb-1 dark:text-white">
             {title}
           </Typography>
-          <Typography variant="small" color="gray" className="font-normal">
+          <Typography variant="small" color="gray" className="font-normal dark:text-gray-400">
             {description}
           </Typography>
         </MenuItem>
@@ -242,12 +242,12 @@ function NavListMenu() {
           <Typography as="a" href="#" variant="small" className="font-normal">
             <MenuItem
               {...triggers}
-              className="hidden items-center gap-2 text-blue-gray-900 lg:flex lg:rounded-full"
+              className="hidden items-center gap-2 text-blue-gray-900 dark:text-white dark:hover:bg-blue-gray-800 lg:flex lg:rounded-full"
             >
               <NewspaperIcon className="h-[18px] w-[18px]" /> Pages{" "}
               <ChevronDownIcon
                 strokeWidth={2}
-                className={`h-3 w-3 transition-transform ${
+                className={`h-3 w-3 transition-transform dark:text-gray-300 ${
                   isMenuOpen ? "rotate-180" : ""
                 }`}
               />
@@ -256,7 +256,7 @@ function NavListMenu() {
         </MenuHandler>
         <MenuList
           {...triggers}
-          className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid"
+          className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible dark:text-white dark:bg-blue-gray-900 dark:border-blue-gray-800 lg:grid"
         >
           <Card
             color="deep-orange"
@@ -271,7 +271,7 @@ function NavListMenu() {
           </ul>
         </MenuList>
       </Menu>
-      <MenuItem className="flex items-center gap-2 text-blue-gray-900 lg:hidden">
+      <MenuItem className="flex items-center gap-2 text-blue-gray-900 dark:text-white lg:hidden">
         <NewspaperIcon className="h-[18px] w-[18px]" /> Pages{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
@@ -303,9 +303,9 @@ function NavList() {
           <Typography
             variant="small"
             color="blue-gray"
-            className="font-normal"
+            className="font-normal dark:text-white"
           >
-            <MenuItem className="flex items-center gap-2 lg:rounded-full">
+            <MenuItem className="flex items-center gap-2 lg:rounded-full dark:hover:bg-blue-gray-800 dark:hover:text-white">
               {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
               {label}
             </MenuItem>
@@ -549,20 +549,21 @@ function ComplexNavbar({ session }) {
 
   return (
     <Navbar
-      className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 mb-2 "
+      className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 mb-2 dark:bg-blue-gray-900 dark:border-blue-gray-900"
       variant="gradient"
     >
       <div className="relative mx-auto flex items-center">
         <Link to="/" className="text-stone-950">
           <img
             className="h-24 w-32 -ml-4 -my-6 rounded-full object-cover object-center"
-            src="src/images/bird_logo.png"
+            src={logo}
             alt="bird logo"
           />
         </Link>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
         </div>
+        
         {/*<div className="">
           <IconButton
             size='sm'
@@ -577,6 +578,7 @@ function ComplexNavbar({ session }) {
             )}
           </IconButton>
         </div>*/}
+        <Switcher />
         <div className="ml-auto flex gap-1 md:mr-4">
           <IconButton
             size="sm"
@@ -585,7 +587,7 @@ function ComplexNavbar({ session }) {
             onClick={toggleIsNavOpen}
             className="ml-auto mr-2 mt-2 lg:hidden"
           >
-            <Bars2Icon className="h-6 w-6" />
+            <Bars2Icon className="h-6 w-6 dark:text-gray-300 mt-2" />
           </IconButton>
           {notifications.length > 0 ? (
             <Menu>
@@ -603,19 +605,19 @@ function ComplexNavbar({ session }) {
                       onClick={toggleNotifOpen}
                       className="ml-auto mr-2 mt-2"
                     >
-                      <BellIcon className="h-6 w-6" />
+                      <BellIcon className="h-6 w-6 mt-2" />
                     </IconButton>
                   </Badge>
                 </div>
               </MenuHandler>
-              <MenuList className=" max-h-32 overflow-y-auto">
+              <MenuList className=" max-h-32 overflow-y-auto dark:bg-blue-gray-800">
                 {notifications.map((notification) => (
                   <MenuItem
                     key={notification.id}
                     className="border-b"
                     onClick={() => dialogOpen(notification.id)}
                   >
-                    <Typography variant="small">
+                    <Typography variant="small" className="dark:text-gray-300">
                       {notification.reply_id.profile_id.username ? (
                         <>
                           {notification.reply_id.profile_id.username} replied to
@@ -649,14 +651,14 @@ function ComplexNavbar({ session }) {
                       onClick={toggleNotifOpen}
                       className="ml-auto mr-2 mt-2"
                     >
-                      <BellIcon className="h-6 w-6" />
+                      <BellIcon className="h-6 w-6 dark:text-gray-300" />
                     </IconButton>
                   </Badge>
                 </div>
               </MenuHandler>
-              <MenuList className=" max-h-32 overflow-y-auto">
+              <MenuList className=" max-h-32 overflow-y-auto dark:bg-blue-gray-800">
                 <MenuItem>
-                  <Typography variant="small">No new notifications.</Typography>
+                  <Typography variant="small" className="dark:text-gray-300">No new notifications.</Typography>
                 </MenuItem>
               </MenuList>
             </Menu>
@@ -664,7 +666,7 @@ function ComplexNavbar({ session }) {
           <ProfileMenu session={session} avatarUrl={avatarUrl} />
         </div>
       </div>
-      <Collapse open={isNavOpen} className="overflow-scroll">
+      <Collapse open={isNavOpen} className="">
         <NavList />
       </Collapse>
       {selectedPost !== null && (

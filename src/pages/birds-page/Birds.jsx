@@ -262,7 +262,7 @@ function Birds() {
                 className="bg-transparent shadow-none max-h-screen overflow-y-scroll"
                 open={open}
               >
-                <Card className="mx-auto w-full max-w-[48rem]">
+                <Card className="mx-auto w-full max-w-[48rem] dark:bg-blue-gray-800">
                   <CardHeader
                     variant="gradient"
                     color="light-blue"

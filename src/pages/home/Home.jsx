@@ -13,7 +13,9 @@ import {
 const Home = () => {
   console.log("Printing a message from Home component!");
   return (
-    <Card className="w-auto h-auto bg-transparent">
+    <Card 
+    shadow={false}
+    className="w-auto h-auto bg-transparent dark:bg-blue-gray-800">
       <div className="grid place-items-center">
         <CardHeader
           color="deep-orange"
@@ -28,12 +30,12 @@ const Home = () => {
         </CardHeader>
       </div>
       <CardBody className="">
-        <div className="border-b border-neutral-700 pb-4 mt-4">
+        <div className="border-b border-neutral-700 dark:border-gray-700 pb-4 mt-4">
           <Hero />
         </div>
       </CardBody>
       <CardBody>
-        <div className="border-b border-neutral-700 pb-4 mt-4">
+        <div className="border-b border-neutral-700 dark:border-gray-700 pb-4 mt-4">
           <SectionOne />
         </div>
       </CardBody>

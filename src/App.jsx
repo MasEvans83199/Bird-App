@@ -16,7 +16,7 @@ import Thread from "./pages/Thread";
 import Posts from "./pages/Posts";
 import "./App.css";
 import "./index.css";
-import { IconButton, Button, ThemeProvider } from "@material-tailwind/react";
+import { IconButton, Button } from "@material-tailwind/react";
 import { SunIcon, MoonIcon } from "@heroicons/react/24/outline";
 
 const supabase = createClient(
@@ -82,8 +82,9 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <div>
+      <div className="dark:bg-blue-gray-800">
         <Menu title="Beak to Basics" links={links} session={session} />
+        
         <main>
           <Routes>
             <Route path="/" element={<Home />} />

@@ -9,6 +9,8 @@ module.exports = withMT({
   variants: {
     extend: {},
   },
-  plugins: [require("@tailwindcss/line-clamp", "flowbite/plugin")],
-  darkMode: "class",
+  plugins: [require("@tailwindcss/line-clamp", "flowbite/plugin", "daisyui")],
+  daisyui: {
+    themes: ["light, dark"],
+  },
 });

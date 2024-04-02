@@ -10,10 +10,10 @@ const SectionOne = () => {
         <img src={connect} alt="Hero" className="shadow-xl rounded-lg" />
       </div>
       <div className="lg:w-[60%] w-full lg:px-6 lg:pl-10">
-        <Typography className="text-3xl ...(truncated)">
+        <Typography className="text-3xl ...(truncated) dark:text-white">
           Look through a gallery of bird photos
         </Typography>
-        <Typography className="font-poppins mb-6">
+        <Typography className="font-poppins mb-6 dark:text-gray-400">
           Here, you can browse a gallery of the most beautiful birds in the
           world. You will be able to see birds from all over the world!
         </Typography>

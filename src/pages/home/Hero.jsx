@@ -8,10 +8,10 @@ const Hero = () => {
   return (
     <div className="w-full lg:p-8 px-4 flex ...(truncated)">
       <div className="lg:w-[60%] w-full lg:px-6 lg:pr-14">
-        <Typography className="text-3xl ...(truncated)">
+        <Typography className="text-3xl ...(truncated) dark:text-white">
           Learn about all different types of birds
         </Typography>
-        <Typography className="font-poppins mb-6">
+        <Typography className="font-poppins mb-6 dark:text-gray-400">
           Look through an expansive catalog of birds, where you can learn about
           their names, behaviors, appearance, calls, and so much more!
         </Typography>

@@ -30,10 +30,10 @@ function SectionTwo() {
   return (
     <section className="py-10 lg:py-20">
       <div className="mx-auto mb-24 w-full text-center md:w-3/4 lg:w-1/2">
-        <Typography variant="h2" className="mb-2 font-semibold tracking-normal">
+        <Typography variant="h2" className="mb-2 font-semibold tracking-normal dark:text-white">
           Participate in the Bird Community
         </Typography>
-        <Typography className="mb-2 text-lg font-light">
+        <Typography className="mb-2 text-lg font-light dark:text-gray-400">
           Join the Bird Community and participate in discussions, chats, and
           more!
         </Typography>
@@ -44,7 +44,7 @@ function SectionTwo() {
             key={key}
             className="mb-12 w-full max-w-full px-3 sm:w-1/2 sm:flex-none lg:mb-0 xl:mb-0 xl:w-1/4"
           >
-            <Card className="border border-white/80 bg-white/80 shadow-lg backdrop-blur-2xl backdrop-saturate-200">
+            <Card className="border border-white/80 bg-white/80 dark:bg-blue-gray-700 dark:border-blue-gray-800 shadow-lg backdrop-blur-2xl backdrop-saturate-200">
               <CardHeader
                 shadow={false}
                 className="mx-6 -mb-3 grid h-12 w-12 place-items-center rounded-lg p-1 text-white shadow-lg"
@@ -53,10 +53,10 @@ function SectionTwo() {
                 {icon}
               </CardHeader>
               <CardBody className="mt-1">
-                <Typography variant="h5" className="mb-2 text-[#1A237E]">
+                <Typography variant="h5" className="mb-2 text-[#1A237E] dark:text-gray-100">
                   {title}
                 </Typography>
-                <Typography className="font-light text-[#787878]/60">
+                <Typography className="font-light text-[#787878]/60 dark:text-gray-400">
                   {description}
                 </Typography>
               </CardBody>
