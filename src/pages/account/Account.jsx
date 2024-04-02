@@ -230,7 +230,7 @@ export default function Account({ session }) {
 
   return (
     <div className="flex justify-center">
-      <Card className="sm:w-2/3 lg:w-1/2 items-center">
+      <Card className="sm:w-2/3 lg:w-1/2 items-center dark:bg-blue-gray-700">
         <CardHeader
           variant="gradient"
           color="deep-orange"

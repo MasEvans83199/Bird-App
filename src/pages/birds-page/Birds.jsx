@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import BirdInformation from "./BirdInformation";
 import BirdImage from "./BirdImage";
+import useDarkSide from "../../static/useDarkSide";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
 import {
   Collapse,
@@ -50,7 +51,7 @@ function Birds() {
   const [birdTypes, setBirdTypes] = useState([]);
   const [consStatus, setConsStatus] = useState("");
   const [callUrl, setCallUrl] = useState("");
-
+  const [colorTheme, setTheme] = useDarkSide();
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
 
@@ -249,8 +250,7 @@ function Birds() {
           <CardBody>
             <div className="grid place-items-end lg:mr-16 ">
               <Button
-                className="mt-4 mb-2"
-                color="light-blue"
+                className="mt-4 mb-2 bg-[#1e40af]"
                 onClick={toggleOpen}
               >
                 Upload Bird
@@ -282,6 +282,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:hidden"
                           label="Name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
@@ -455,16 +456,16 @@ function Birds() {
               </Dialog>
             ) : (
               <Collapse open={open}>
-                <Card className="my-4 mx-auto w-1/3 items-center">
+                <Card className="my-4 mx-auto w-1/3 items-center dark:bg-blue-gray-700">
                   <CardBody>
-                    <Typography color="gray" className="mt-1 font-normal">
+                    <Typography color="gray" className="mt-1 font-normal dark:text-gray-300">
                       Fill in the following information about a bird.
                     </Typography>
                     <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96 ">
                       <div className="mb-1 grid grid-cols-2 gap-x-52 gap-y-2 mr-52">
                         <Input
                           size="lg"
-                          color="light-blue"
+                          color={ colorTheme === 'dark' ? 'white' : 'light-blue'}
                           label="Name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
@@ -501,7 +502,7 @@ function Birds() {
                           onChange={(value) => setSelectedType(value)}
                         >
                           {birdTypes.map((type) => (
-                            <Option key={type} value={type}>
+                            <Option className="dark:bg-blue-gray-600 dark:text-gray-300" key={type} value={type}>
                               {type}
                             </Option>
                           ))}
@@ -556,7 +557,7 @@ function Birds() {
                           onChange={(e) => setFunFact(e.target.value)}
                         />
                       </div>
-                      <Card className="mb-4 mt-2 ml-2 w-full max-w-[24rem]">
+                      <Card className="mb-4 mt-2 ml-2 w-full max-w-[24rem] dark:bg-blue-gray-600">
                         <List className="flex-row">
                           <ListItem className="p-0">
                             <label
@@ -578,7 +579,7 @@ function Birds() {
                               </ListItemPrefix>
                               <Typography
                                 color="blue-gray"
-                                className="font-medium"
+                                className="font-medium dark:text-gray-300"
                               >
                                 Extinct
                               </Typography>
@@ -604,7 +605,7 @@ function Birds() {
                               </ListItemPrefix>
                               <Typography
                                 color="blue-gray"
-                                className="font-medium"
+                                className="font-medium dark:text-gray-300"
                               >
                                 Endangered
                               </Typography>

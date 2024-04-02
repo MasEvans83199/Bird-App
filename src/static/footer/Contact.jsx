@@ -35,8 +35,8 @@ function Contact() {
   };
 
   return (
-    <div className="grid place-items-center">
-      <Card className="mt-12 w-3/4">
+    <div className="grid place-items-center h-screen">
+      <Card className="mt-12 w-3/4 dark:bg-blue-gray-700">
         <div className="grid place-items-center">
           <CardHeader
             variant="gradient"
@@ -52,7 +52,7 @@ function Contact() {
           <form onSubmit={sendEmail} className="w-3/5 mx-auto" ref={form}>
             <div className="mb-4">
               <Input
-                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-blue-500"
+                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 dark:focus:border-gray-300"
                 type="text"
                 label="Your name"
                 name="user_name"
@@ -61,7 +61,7 @@ function Contact() {
             </div>
             <div className="mb-4">
               <Input
-                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-blue-500"
+                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 dark:text-gray-300"
                 type="email"
                 label="Email"
                 name="user_email"
@@ -71,7 +71,7 @@ function Contact() {
 
             <div className="mb-4">
               <Textarea
-                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-orange-500"
+                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-orange-500 dark:text-gray-300"
                 variant="static"
                 placeholder="Enter your message here..."
                 name="message"

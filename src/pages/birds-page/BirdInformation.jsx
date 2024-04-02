@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Howl } from "howler";
 import { DarkThemeToggle, Flowbite } from "flowbite-react";
+import { useDarkSide } from "../../static/useDarkSide";
 import { createClient } from '@supabase/supabase-js'
 import {
   MagnifyingGlassIcon,
@@ -299,11 +300,12 @@ function BirdInformation() {
         >
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <Tabs value={TABS[active].value} className="w-full md:w-max">
-              <TabsHeader>
+              <TabsHeader className=" dark:bg-blue-gray-500">
                 {TABS.map(({ label, value }, index) => (
                   <Tab
                     key={value}
                     value={value}
+                    className=""
                     {...getItemProps(index)}
                     onClick={() => handleTabChange(index)}
                   >
@@ -315,10 +317,10 @@ function BirdInformation() {
             <div className="w-full md:w-72 mb-2">
               <Input
                 label="Search"
+                className=" dark:border-gray-300 dark:text-gray-300"
                 icon={
-                  <MagnifyingGlassIcon className="h-5 w-5" color="light-blue" />
+                  <MagnifyingGlassIcon className="h-5 w-5 text-light-blue dark:text-gray-300"  />
                 }
-                color="light-blue"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -332,7 +334,7 @@ function BirdInformation() {
                 {TABLE_HEAD.map((head, index) => (
                   <th
                     key={head}
-                    className={`cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50 sm:text-sm ${
+                    className={`cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50 dark:border-blue-gray-400 dark:bg-blue-gray-600 dark:hover:bg-blue-gray-500 sm:text-sm ${
                       (index !== 0 && index !== 1 && index !== 5 && isTablet) ||
                       (index !== 0 && index !== 5 && isMobile)
                         ? "hidden"
@@ -343,13 +345,13 @@ function BirdInformation() {
                     <Typography
                       variant="small"
                       color="blue-gray"
-                      className="flex items-center justify-between gap-2 font-normal leading-none opacity-70"
+                      className="flex items-center justify-between gap-2 font-normal leading-none opacity-70 dark:text-gray-200"
                     >
                       {head}{" "}
                       {index !== TABLE_HEAD.length - 1 && (
                         <ChevronUpDownIcon
                           strokeWidth={2}
-                          className={`h-4 w-4 ${
+                          className={`h-4 w-4 dark:text-gray-300 ${
                             sortingCriteria === head
                               ? sortAscending
                                 ? "transform rotate-180"
@@ -398,14 +400,14 @@ function BirdInformation() {
                             <Typography
                               variant="small"
                               color="blue-gray"
-                              className="font-normal"
+                              className="font-normal dark:text-gray-200"
                             >
                               {bird.name}
                             </Typography>
                             <Typography
                               variant="small"
                               color="blue-gray"
-                              className="font-normal opacity-70"
+                              className="font-normal opacity-70 dark:text-gray-400"
                             >
                               {bird.genus} {bird.species}
                             </Typography>
@@ -416,7 +418,7 @@ function BirdInformation() {
                         {bird.calls ? (
                           <Button
                             size="sm"
-                            className="rounded-full"
+                            className="rounded-full dark:bg-blue-600 dark:text-gray-300"
                             color="light-blue"
                             onClick={() => playAudio(bird.id, bird.calls)}
                           >
@@ -454,7 +456,7 @@ function BirdInformation() {
                             Show All
                           </Button>
                           <Dialog
-                            className="overflow-y-auto h-5/6"
+                            className="overflow-y-auto h-5/6 dark:bg-blue-gray-800"
                             open={selectedBirdId === bird.id} // Compare with the selectedBirdId
                             handler={() => toggleOpen(bird.id)}
                             animate={{
@@ -463,7 +465,7 @@ function BirdInformation() {
                             }}
                           >
                             <DialogHeader className="flex justify-center items-center">
-                              <Typography variant="h3" color="blue-gray">
+                              <Typography className="dark:text-gray-100" variant="h3" color="blue-gray">
                                 {bird.name}
                               </Typography>
                             </DialogHeader>
@@ -477,35 +479,35 @@ function BirdInformation() {
                             <DialogBody divider>
                               <div className="grid grid-cols-2 gap-4">
                                 <div className="col-span-2 space-y-2">
-                                  <Typography variant="h4">
+                                  <Typography className="dark:text-gray-300" variant="h4">
                                     Appearance:
                                   </Typography>
-                                  <Typography variant="paragraph">
+                                  <Typography className="dark:text-gray-400" variant="paragraph">
                                     {bird.appearance}
                                   </Typography>
-                                  <Typography variant="h4">Range:</Typography>
-                                  <Typography>{bird.range}</Typography>
-                                  <Typography variant="h4">Habitat:</Typography>
-                                  <Typography>{bird.habitat}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
+                                  <Typography className="dark:text-gray-400">{bird.range}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">Habitat:</Typography>
+                                  <Typography className="dark:text-gray-400">{bird.habitat}</Typography>
                                 </div>
                                 <div className="col-span-2 space-y-2">
-                                  <Typography variant="h4">
+                                  <Typography className="dark:text-gray-300" variant="h4">
                                     Behavior:
                                   </Typography>
-                                  <Typography>{bird.behavior}</Typography>
-                                  <Typography variant="h4">
+                                  <Typography className="dark:text-gray-400">{bird.behavior}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">
                                     Conservation:
                                   </Typography>
-                                  <Typography>{bird.conservation}</Typography>
-                                  <Typography variant="h5">
+                                  <Typography className="dark:text-gray-400">{bird.conservation}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">
                                     Fun Fact:
                                   </Typography>
-                                  <Typography>{bird.funfact}</Typography>
+                                  <Typography className="dark:text-gray-400">{bird.funfact}</Typography>
                                 </div>
                               </div>
                             </DialogBody>
                             <DialogBody className="flex justify-left text-left -mt-2 -mb-8">
-                              <Typography variant="small" color="gray">
+                              <Typography className="dark:text-gray-400" variant="small" color="gray">
                                 Uploaded by {bird.profile_id.username} at{" "}
                                 {formatDateTime(bird.uploaded)}
                               </Typography>
@@ -534,7 +536,7 @@ function BirdInformation() {
                             Show All
                           </Button>
                           <Dialog
-                            className="overflow-y-auto h-5/6"
+                            className="overflow-y-auto h-5/6 dark:bg-blue-gray-800"
                             open={selectedBirdId === bird.id} // Compare with the selectedBirdId
                             handler={() => toggleOpen(bird.id)}
                             animate={{
@@ -546,7 +548,7 @@ function BirdInformation() {
                               <Typography
                                 variant="h3"
                                 color="blue-gray"
-                                className="mr-4"
+                                className="mr-4 dark:text-gray-100"
                               >
                                 {bird.name}
                               </Typography>
@@ -592,35 +594,35 @@ function BirdInformation() {
                             <DialogBody divider>
                               <div className="grid grid-cols-2 gap-4">
                                 <div className="col-span-2 space-y-2">
-                                  <Typography variant="h4">
+                                  <Typography className="dark:text-gray-300" variant="h4">
                                     Appearance:
                                   </Typography>
-                                  <Typography variant="paragraph">
+                                  <Typography className="dark:text-gray-400" variant="paragraph">
                                     {bird.appearance}
                                   </Typography>
-                                  <Typography variant="h4">Range:</Typography>
-                                  <Typography>{bird.range}</Typography>
-                                  <Typography variant="h4">Habitat:</Typography>
-                                  <Typography>{bird.habitat}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
+                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.range}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">Habitat:</Typography>
+                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.habitat}</Typography>
                                 </div>
                                 <div className="col-span-2 space-y-2">
-                                  <Typography variant="h4">
+                                  <Typography className="dark:text-gray-300" variant="h4">
                                     Behavior:
                                   </Typography>
-                                  <Typography>{bird.behavior}</Typography>
-                                  <Typography variant="h4">
+                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.behavior}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">
                                     Conservation:
                                   </Typography>
-                                  <Typography>{bird.conservation}</Typography>
-                                  <Typography variant="h5">
+                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.conservation}</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h5">
                                     Fun Fact:
                                   </Typography>
-                                  <Typography>{bird.funfact}</Typography>
+                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.funfact}</Typography>
                                 </div>
                               </div>
                             </DialogBody>
                             <DialogBody className="flex justify-left text-left -mt-2 -mb-8">
-                              <Typography variant="small" color="gray">
+                              <Typography variant="small" color="gray" className="dark:text-gray-400">
                                 Uploaded by {bird.profile_id.username} at{" "}
                                 {formatDateTime(bird.uploaded)}
                               </Typography>
@@ -651,7 +653,7 @@ function BirdInformation() {
                                   <Typography
                                     variant="small"
                                     color="white"
-                                    className="font-medium capitalize leading-none text-center"
+                                    className="font-medium capitalize leading-none text-center dark:text-white"
                                   >
                                     {bird.type_id.bird_type}
                                   </Typography>
@@ -685,8 +687,8 @@ function BirdInformation() {
                                     {bird.profile_id.username}
                                   </Typography>
                                 }
-                                color="blue-gray"
-                                className="rounded-full py-1.5"
+                                
+                                className="rounded-full py-1.5 bg-[#64748b]"
                               />
                             </div>
                           </td>
@@ -699,7 +701,7 @@ function BirdInformation() {
                               <Typography
                                 variant="small"
                                 color="blue-gray"
-                                className="font-normal"
+                                className="font-normal dark:text-gray-200"
                               >
                                 {formatDateTime(bird.uploaded)}
                               </Typography>
@@ -714,7 +716,7 @@ function BirdInformation() {
                                 Read more
                               </Button>
                               <Dialog
-                                className="overflow-y-auto h-fit"
+                                className="overflow-y-auto h-fit dark:bg-blue-gray-800 "
                                 open={selectedBirdId === bird.id} // Compare with the selectedBirdId
                                 handler={() => toggleOpen(bird.id)}
                                 animate={{
@@ -722,31 +724,31 @@ function BirdInformation() {
                                   unmount: { scale: 0.9, y: -100 },
                                 }}
                               >
-                                <DialogHeader>{bird.name}</DialogHeader>
+                                <DialogHeader className="dark:text-gray-200">{bird.name}</DialogHeader>
                                 <DialogBody divider>
                                   <React.Fragment>
-                                    <Typography variant="h4">
+                                    <Typography className="dark:text-gray-300" variant="h4">
                                       Appearance:
                                     </Typography>
-                                    <Typography>{bird.appearance}</Typography>
-                                    <Typography variant="h4">Range:</Typography>
-                                    <Typography>{bird.range}</Typography>
-                                    <Typography variant="h4">
+                                    <Typography className="dark:text-gray-400">{bird.appearance}</Typography>
+                                    <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
+                                    <Typography className="dark:text-gray-400">{bird.range}</Typography>
+                                    <Typography className="dark:text-gray-300" variant="h4">
                                       Habitat:
                                     </Typography>
-                                    <Typography>{bird.habitat}</Typography>
-                                    <Typography variant="h4">
+                                    <Typography className="dark:text-gray-400">{bird.habitat}</Typography>
+                                    <Typography className="dark:text-gray-300" variant="h4">
                                       Behavior:
                                     </Typography>
-                                    <Typography>{bird.behavior}</Typography>
-                                    <Typography variant="h4">
+                                    <Typography className="dark:text-gray-400">{bird.behavior}</Typography>
+                                    <Typography className="dark:text-gray-300" variant="h4">
                                       Conservation:
                                     </Typography>
-                                    <Typography>{bird.conservation}</Typography>
-                                    <Typography variant="h5">
+                                    <Typography className="dark:text-gray-400">{bird.conservation}</Typography>
+                                    <Typography className="dark:text-gray-300" variant="h5">
                                       Fun Fact:
                                     </Typography>
-                                    <Typography>{bird.funfact}</Typography>
+                                    <Typography className="dark:text-gray-400">{bird.funfact}</Typography>
                                   </React.Fragment>
                                 </DialogBody>
                                 <DialogFooter>
@@ -771,9 +773,9 @@ function BirdInformation() {
           </table>
         </CardBody>
         <CardFooter>
-          <ButtonGroup variant="outlined" color="blue-gray">
+          <ButtonGroup variant="outlined" className="dark:text-gray-300" color="blue-gray">
             <IconButton onClick={prev}>
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4 dark:text-gray-300" />
             </IconButton>
             {Array.from({ length: totalPages }, (_, i) => (
               <IconButton
@@ -785,7 +787,7 @@ function BirdInformation() {
               </IconButton>
             ))}
             <IconButton onClick={next}>
-              <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+              <ArrowRightIcon strokeWidth={2} className="h-4 w-4 dark:text-gray-300" />
             </IconButton>
           </ButtonGroup>
         </CardFooter>

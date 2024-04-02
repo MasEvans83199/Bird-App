@@ -18,7 +18,7 @@ const current_year = new Date().getFullYear();
 
 function Footer() {
   return (
-    <Card className="mt-4 shadow-lg border-t dark:bg-blue-gray-800 dark:border-blue-gray-700">
+    <Card className=" w-full shadow-lg border-t dark:bg-blue-gray-800 dark:border-blue-gray-700">
       <CardBody>
         <footer className="px-8">
           <div className="container mx-auto">

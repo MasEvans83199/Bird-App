@@ -48,7 +48,7 @@ function Login() {
   if (!session) {
     return (
       <div className="grid place-items-center">
-        <Card className="w-1/2 mt-12">
+        <Card className="w-1/2 mt-12 dark:bg-blue-gray-700">
           <div className="grid place-items-center">
             <CardHeader
               variant="gradient"
@@ -67,12 +67,12 @@ function Login() {
               socialLayout="compact"
               redirectTo={
                 !"google"
-                  ? "https://bird-website-js-1.masevans83199.repl.co/update-password"
+                  ? "https://www.beaktobasics.com/update-password"
                   : !"discord"
-                  ? "https://bird-website-js-1.masevans83199.repl.co/update-password"
+                  ? "https://www.beaktobasics.com/update-password"
                   : !"github"
-                  ? "https://bird-website-js-1.masevans83199.repl.co/update-password"
-                  : "https://bird-website-js-1.masevans83199.repl.co/"
+                  ? "https://www.beaktobasics.com/update-password"
+                  : "https://www.beaktobasics.com/"
               }
               appearance={{
                 theme: ThemeSupa,
@@ -84,10 +84,10 @@ function Login() {
                       brand: "#0ea5e9",
                       brandAccent: "#7dd3fc",
                       brandButtonText: "gray",
-                      defaultButtonBackground: "#0ea5e9",
+                      defaultButtonBackground: "#d1d5db",
                       defaultButtonText: "white",
                       dividerBackground: "gray",
-                      defaultButtonBackgroundHover: "#7dd3fc",
+                      defaultButtonBackgroundHover: "#9ca3af",
                     },
                   },
                 },
