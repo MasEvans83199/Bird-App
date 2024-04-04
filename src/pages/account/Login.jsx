@@ -40,7 +40,7 @@ function Login() {
         window.location.href = "/";
       } else {
         window.location.href =
-          "https://bird-website-js-1.masevans83199.repl.co/update-password";
+          "https://www.beaktobasics.com/update-password";
       }
     }, [session]);
   };
