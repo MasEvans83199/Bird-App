@@ -38,7 +38,7 @@ function Footer() {
                   </li>
                 ))}
               </ul>
-              <div className="gap-2 lg:flex items-center justify-center">
+              <div className="flex justify-center gap-2 lg:flex items-center">
                 <a href="https://github.com/MasEvans83199/Bird-App" target="_blank" rel="noopener noreferrer">
                   <IconButton className="my-2 rounded bg-amber-900 hover:shadow-[#333333]/20 focus:shadow-[#333333]/20 active:shadow-[#333333]/10 dark:bg-gray-300 dark:hover:shadow-gray-200/10 dark:focus:shadow-gray-200/20">
                     <img className="dark:hidden" src={GitLight} alt="GitHub Light Icon" />
