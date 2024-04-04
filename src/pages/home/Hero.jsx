@@ -16,7 +16,7 @@ const Hero = () => {
           their names, behaviors, appearance, calls, and so much more!
         </Typography>
         <Link to="/birds">
-          <Button size="lg" color="light-blue">
+          <Button size="lg" color="light-blue" className="dark:bg-[#1e40af]">
             <span>Explore Birds</span>
           </Button>
         </Link>

@@ -266,7 +266,7 @@ function Birds() {
                   <CardHeader
                     variant="gradient"
                     color="light-blue"
-                    className="mb-4 grid h-28 place-items-center"
+                    className="mb-4 grid h-28 place-items-center dark:bg-[#c2410c]"
                   >
                     <Typography
                       variant="h3"
@@ -321,10 +321,10 @@ function Birds() {
                           label="Type"
                           value={selectedType}
                           onChange={(value) => setSelectedType(value)}
-                          className="max-h-96 overflow-y-auto dark:text-gray-300"
+                          className="max-h-96 overflow-y-auto"
                         >
                           {birdTypes.map((type) => (
-                            <Option key={type} value={type}>
+                            <Option key={type} value={type} className="dark:bg-blue-gray-600 dark:text-gray-300">
                               {type}
                             </Option>
                           ))}
@@ -390,11 +390,11 @@ function Birds() {
                       </div>
                     </div>
                     <div className="flex justify-center">
-                      <Card className="mb-4 mt-2 ml-2 w-full max-w-[24rem]">
+                    <Card className="mb-4 mt-2 ml-2 w-full max-w-[24rem] dark:bg-blue-gray-600">
                         <List className="flex-row">
-                          <ListItem className="p-0">
+                          <ListItem className="p-0 dark:hover:bg-blue-gray-700">
                             <label
-                              htmlFor="horizontal-list-react"
+                              htmlFor="horizontal-list-extinct"
                               className="flex w-full cursor-pointer items-center px-3 py-2"
                             >
                               <ListItemPrefix className="mr-3">
@@ -403,7 +403,8 @@ function Birds() {
                                   id="horizontal-list-extinct"
                                   ripple={true}
                                   color="light-blue"
-                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25"
+                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25 dark:border-[#1e40af]/50 dark:bg-[#1e40af]/25 dark:text-gray-300"
+                                  iconProps={{ className: "dark:text-[#1e40af]" }}
                                   containerProps={{
                                     className: "p-0",
                                   }}
@@ -412,16 +413,16 @@ function Birds() {
                               </ListItemPrefix>
                               <Typography
                                 color="blue-gray"
-                                className="font-medium"
+                                className="font-medium dark:text-gray-300"
                               >
                                 Extinct
                               </Typography>
                             </label>
                           </ListItem>
-                          <ListItem className="p-0">
+                          <ListItem className="p-0 dark:hover:bg-blue-gray-700">
                             <label
-                              htmlFor="horizontal-list-vue"
-                              className="flex w-full cursor-pointer items-center px-3 py-2"
+                              htmlFor="horizontal-list-endanger"
+                              className="flex w-full cursor-pointer items-center hover:text-white px-3 py-2"
                             >
                               <ListItemPrefix className="mr-3">
                                 <Radio
@@ -429,7 +430,8 @@ function Birds() {
                                   id="horizontal-list-endanger"
                                   ripple={true}
                                   color="light-blue"
-                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25"
+                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25 dark:border-[#1e40af]/50 dark:bg-[#1e40af]/25 dark:text-gray-300"
+                                  iconProps={{ className: "dark:text-[#1e40af]" }}
                                   containerProps={{
                                     className: "p-0",
                                   }}
@@ -438,7 +440,7 @@ function Birds() {
                               </ListItemPrefix>
                               <Typography
                                 color="blue-gray"
-                                className="font-medium"
+                                className="font-medium dark:text-gray-300"
                               >
                                 Endangered
                               </Typography>
@@ -447,7 +449,12 @@ function Birds() {
                         </List>
                       </Card>
                     </div>
-                    <Button color="light-blue" size="lg" onClick={handleSubmit}>
+                    <Button 
+                    color="light-blue"
+                    size="lg" 
+                    className="dark:bg-[#1e40af]" 
+                    onClick={handleSubmit}
+                    >
                       Submit
                     </Button>
                   </CardBody>

@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Howl } from "howler";
-import { DarkThemeToggle, Flowbite } from "flowbite-react";
-import { useDarkSide } from "../../static/useDarkSide";
 import { createClient } from '@supabase/supabase-js'
 import {
   MagnifyingGlassIcon,
@@ -78,7 +76,7 @@ function BirdInformation() {
 
   const getItemProps = (index) => ({
     className:
-      active === index ? "bg-light-blue-200 border-sm text-blue-gray-900" : "",
+      active === index ? "bg-transparent border-sm text-blue-gray-900" : "dark:text-gray-300 dark:bg",
     onClick: () => setActive(index),
   });
 
@@ -291,206 +289,449 @@ function BirdInformation() {
   };
 
   return (
-    <Flowbite>
-      <Card className="h-full w-full bg-transparent">
-        <CardHeader
-          floated={false}
-          shadow={false}
-          className="rounded-none bg-transparent"
-        >
-          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <Tabs value={TABS[active].value} className="w-full md:w-max">
-              <TabsHeader className=" dark:bg-blue-gray-500">
-                {TABS.map(({ label, value }, index) => (
-                  <Tab
-                    key={value}
-                    value={value}
-                    className=""
-                    {...getItemProps(index)}
-                    onClick={() => handleTabChange(index)}
-                  >
-                    &nbsp;&nbsp;{label}&nbsp;&nbsp;
-                  </Tab>
-                ))}
-              </TabsHeader>
-            </Tabs>
-            <div className="w-full md:w-72 mb-2">
-              <Input
-                label="Search"
-                className=" dark:border-gray-300 dark:text-gray-300"
-                icon={
-                  <MagnifyingGlassIcon className="h-5 w-5 text-light-blue dark:text-gray-300"  />
-                }
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
+    <Card className="h-full w-full bg-transparent">
+      <CardHeader
+        floated={false}
+        shadow={false}
+        className="rounded-none bg-transparent"
+      >
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <Tabs value={TABS[active].value} className="w-full md:w-max">
+            <TabsHeader className=" dark:bg-blue-gray-500">
+              {TABS.map(({ label, value }, index) => (
+                <Tab
+                  key={value}
+                  value={value}
+                  className=""
+                  {...getItemProps(index)}
+                  onClick={() => handleTabChange(index)}
+                >
+                  &nbsp;&nbsp;{label}&nbsp;&nbsp;
+                </Tab>
+              ))}
+            </TabsHeader>
+          </Tabs>
+          <div className="w-full md:w-72 mb-2">
+            <Input
+              label="Search"
+              className=" dark:border-gray-300 dark:text-gray-300"
+              icon={
+                <MagnifyingGlassIcon className="h-5 w-5 text-light-blue dark:text-gray-300"  />
+              }
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
-        </CardHeader>
-        <CardBody className="overflow-x-auto px-0">
-          <table className="mt-4 w-full min-w-max table-auto text-left">
-            <thead>
-              <tr>
-                {TABLE_HEAD.map((head, index) => (
-                  <th
-                    key={head}
-                    className={`cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50 dark:border-blue-gray-400 dark:bg-blue-gray-600 dark:hover:bg-blue-gray-500 sm:text-sm ${
-                      (index !== 0 && index !== 1 && index !== 5 && isTablet) ||
-                      (index !== 0 && index !== 5 && isMobile)
-                        ? "hidden"
-                        : ""
-                    }`}
-                    onClick={() => handleSort(head)}
+        </div>
+      </CardHeader>
+      <CardBody className="overflow-x-auto px-0">
+        <table className="mt-4 w-full min-w-max table-auto text-left">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head, index) => (
+                <th
+                  key={head}
+                  className={`cursor-pointer border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 transition-colors hover:bg-blue-gray-50 dark:border-blue-gray-400 dark:bg-blue-gray-600 dark:hover:bg-blue-gray-500 sm:text-sm ${
+                    (index !== 0 && index !== 1 && index !== 5 && isTablet) ||
+                    (index !== 0 && index !== 5 && isMobile)
+                      ? "hidden"
+                      : ""
+                  }`}
+                  onClick={() => handleSort(head)}
+                >
+                  <Typography
+                    variant="small"
+                    color="blue-gray"
+                    className="flex items-center justify-between gap-2 font-normal leading-none opacity-70 dark:text-gray-200"
                   >
-                    <Typography
-                      variant="small"
-                      color="blue-gray"
-                      className="flex items-center justify-between gap-2 font-normal leading-none opacity-70 dark:text-gray-200"
-                    >
-                      {head}{" "}
-                      {index !== TABLE_HEAD.length - 1 && (
-                        <ChevronUpDownIcon
-                          strokeWidth={2}
-                          className={`h-4 w-4 dark:text-gray-300 ${
-                            sortingCriteria === head
-                              ? sortAscending
-                                ? "transform rotate-180"
-                                : ""
+                    {head}{" "}
+                    {index !== TABLE_HEAD.length - 1 && (
+                      <ChevronUpDownIcon
+                        strokeWidth={2}
+                        className={`h-4 w-4 dark:text-gray-300 ${
+                          sortingCriteria === head
+                            ? sortAscending
+                              ? "transform rotate-180"
                               : ""
-                          }`}
+                            : ""
+                        }`}
+                      />
+                    )}
+                  </Typography>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {currentBirds
+              .filter((bird) => {
+                // Apply search filtering on 'currentBirds'
+                const birdNameLower = bird.name.toLowerCase();
+                const birdTypeLower = bird.type_id.bird_type.toLowerCase();
+                const searchTermLower = searchTerm.toLowerCase();
+                return (
+                  birdNameLower.includes(searchTermLower) ||
+                  birdTypeLower.includes(searchTermLower)
+                );
+              })
+              .map((bird, index) => {
+                const isLast = index === birdList.length - 1;
+                const classes = isLast
+                  ? "p-4"
+                  : "p-4 border-b border-blue-gray-50";
+
+                const chipColor =
+                  birdTypeColors[bird.type_id.bird_type] || "gray";
+
+                return (
+                  <tr key={bird.id}>
+                    <td className={classes}>
+                      <div className="flex items-center gap-3">
+                        <Avatar
+                          src={bird.photo}
+                          size="xxl"
+                          variant="rounded"
+                          className="h-auto hover:z-50"
                         />
+                        <div className="flex flex-col">
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal dark:text-gray-200"
+                          >
+                            {bird.name}
+                          </Typography>
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal opacity-70 dark:text-gray-400"
+                          >
+                            {bird.genus} {bird.species}
+                          </Typography>
+                        </div>
+                      </div>
+                    </td>
+                    <td className={`${isMobile ? "hidden" : ""} ${classes}`}>
+                      {bird.calls ? (
+                        <Button
+                          size="sm"
+                          className="rounded-full dark:bg-blue-600 dark:text-gray-300"
+                          color="light-blue"
+                          onClick={() => playAudio(bird.id, bird.calls)}
+                        >
+                          {isPlaying[bird.id] ? (
+                            <StopCircleIcon
+                              className="h-5 w-5"
+                              color="white"
+                            />
+                          ) : (
+                            <PlayCircleIcon
+                              className="h-5 w-5"
+                              color="white"
+                            />
+                          )}
+                        </Button>
+                      ) : (
+                        <Button
+                          size="sm"
+                          className="rounded-full"
+                          color="gray"
+                        >
+                          <NoSymbolIcon className="h-5 w-5" color="white" />
+                        </Button>
                       )}
-                    </Typography>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {currentBirds
-                .filter((bird) => {
-                  // Apply search filtering on 'currentBirds'
-                  const birdNameLower = bird.name.toLowerCase();
-                  const birdTypeLower = bird.type_id.bird_type.toLowerCase();
-                  const searchTermLower = searchTerm.toLowerCase();
-                  return (
-                    birdNameLower.includes(searchTermLower) ||
-                    birdTypeLower.includes(searchTermLower)
-                  );
-                })
-                .map((bird, index) => {
-                  const isLast = index === birdList.length - 1;
-                  const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
-
-                  const chipColor =
-                    birdTypeColors[bird.type_id.bird_type] || "gray";
-
-                  return (
-                    <tr key={bird.id}>
-                      <td className={classes}>
-                        <div className="flex items-center gap-3">
-                          <Avatar
-                            src={bird.photo}
-                            size="xxl"
-                            variant="rounded"
-                            className="h-auto hover:z-50"
-                          />
-                          <div className="flex flex-col">
+                    </td>
+                    {isTablet ? (
+                      <div className="text-center leading-[100px]">
+                        <Button
+                          size="md"
+                          className="rounded-full dark:bg-[#1e40af]"
+                          onClick={() => toggleOpen(bird.id)}
+                          color="light-blue"
+                        >
+                          Show All
+                        </Button>
+                        <Dialog
+                          className="overflow-y-auto h-5/6 dark:bg-blue-gray-800"
+                          open={selectedBirdId === bird.id} // Compare with the selectedBirdId
+                          handler={() => toggleOpen(bird.id)}
+                          animate={{
+                            mount: { scale: 1, y: 0 },
+                            unmount: { scale: 0.9, y: -100 },
+                          }}
+                        >
+                          <DialogHeader className="flex justify-center items-center">
+                            <Typography className="dark:text-gray-100" variant="h3" color="blue-gray">
+                              {bird.name}
+                            </Typography>
+                          </DialogHeader>
+                          <DialogBody divider>
+                            <img
+                              src={bird.photo}
+                              size="xxl"
+                              className="h-auto object-cover object-center rounded-lg mb-2"
+                            />
+                          </DialogBody>
+                          <DialogBody divider>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="col-span-2 space-y-2">
+                                <Typography className="dark:text-gray-300" variant="h4">
+                                  Appearance:
+                                </Typography>
+                                <Typography className="dark:text-gray-400" variant="paragraph">
+                                  {bird.appearance}
+                                </Typography>
+                                <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
+                                <Typography className="dark:text-gray-400">{bird.range}</Typography>
+                                <Typography className="dark:text-gray-300" variant="h4">Habitat:</Typography>
+                                <Typography className="dark:text-gray-400">{bird.habitat}</Typography>
+                              </div>
+                              <div className="col-span-2 space-y-2">
+                                <Typography className="dark:text-gray-300" variant="h4">
+                                  Behavior:
+                                </Typography>
+                                <Typography className="dark:text-gray-400">{bird.behavior}</Typography>
+                                <Typography className="dark:text-gray-300" variant="h4">
+                                  Conservation:
+                                </Typography>
+                                <Typography className="dark:text-gray-400">{bird.conservation}</Typography>
+                                <Typography className="dark:text-gray-300" variant="h4">
+                                  Fun Fact:
+                                </Typography>
+                                <Typography className="dark:text-gray-400">{bird.funfact}</Typography>
+                              </div>
+                            </div>
+                          </DialogBody>
+                          <DialogBody className="flex justify-left text-left -mt-2 -mb-8">
+                            <Typography className="dark:text-gray-400" variant="small" color="gray">
+                              Uploaded by {bird.profile_id.username} at{" "}
+                              {formatDateTime(bird.uploaded)}
+                            </Typography>
+                          </DialogBody>
+                          <DialogFooter>
+                            <Button
+                              variant="outlined"
+                              color="red"
+                              onClick={() => toggleOpen(bird.id)}
+                              className="mr-1"
+                            >
+                              <span>Close</span>
+                            </Button>
+                          </DialogFooter>
+                        </Dialog>
+                      </div>
+                    ) : isMobile ? (
+                      <div className="text-center leading-[100px]">
+                        <Button
+                          size="md"
+                          className="rounded-full dark:bg-[#1e40af]"
+                          onClick={() => toggleOpen(bird.id)}
+                          color="light-blue"
+                        >
+                          Show All
+                        </Button>
+                        <Dialog
+                          className="overflow-y-auto h-5/6 dark:bg-blue-gray-800"
+                          open={selectedBirdId === bird.id} // Compare with the selectedBirdId
+                          handler={() => toggleOpen(bird.id)}
+                          animate={{
+                            mount: { scale: 1, y: 0 },
+                            unmount: { scale: 0.9, y: -100 },
+                          }}
+                        >
+                          <DialogHeader className="flex justify-center items-center">
+                            <Typography
+                              variant="h3"
+                              color="blue-gray"
+                              className="mr-4 dark:text-gray-100"
+                            >
+                              {bird.name}
+                            </Typography>
+                            {bird.calls ? (
+                              <Button
+                                size="sm"
+                                className="rounded-full ml-4"
+                                color="light-blue"
+                                onClick={() => playAudio(bird.id, bird.calls)}
+                              >
+                                {isPlaying[bird.id] ? (
+                                  <StopCircleIcon
+                                    className="h-5 w-5"
+                                    color="white"
+                                  />
+                                ) : (
+                                  <PlayCircleIcon
+                                    className="h-5 w-5"
+                                    color="white"
+                                  />
+                                )}
+                              </Button>
+                            ) : (
+                              <Button
+                                size="sm"
+                                className="rounded-full"
+                                color="gray"
+                              >
+                                <NoSymbolIcon
+                                  className="h-5 w-5"
+                                  color="white"
+                                />
+                              </Button>
+                            )}
+                          </DialogHeader>
+                          <DialogBody divider>
+                            <img
+                              src={bird.photo}
+                              size="xxl"
+                              className="h-auto object-cover object-center rounded-lg mb-2"
+                            />
+                          </DialogBody>
+                          <DialogBody divider>
+                            <div className="grid grid-cols-2 gap-4">
+                              <div className="col-span-2 space-y-2">
+                                <Typography className="dark:text-gray-300" variant="h4">
+                                  Appearance:
+                                </Typography>
+                                <Typography className="dark:text-gray-400" variant="paragraph">
+                                  {bird.appearance}
+                                </Typography>
+                                <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
+                                <Typography className="dark:text-gray-400" variant="paragraph">{bird.range}</Typography>
+                                <Typography className="dark:text-gray-300" variant="h4">Habitat:</Typography>
+                                <Typography className="dark:text-gray-400" variant="paragraph">{bird.habitat}</Typography>
+                              </div>
+                              <div className="col-span-2 space-y-2">
+                                <Typography className="dark:text-gray-300" variant="h4">
+                                  Behavior:
+                                </Typography>
+                                <Typography className="dark:text-gray-400" variant="paragraph">{bird.behavior}</Typography>
+                                <Typography className="dark:text-gray-300" variant="h4">
+                                  Conservation:
+                                </Typography>
+                                <Typography className="dark:text-gray-400" variant="paragraph">{bird.conservation}</Typography>
+                                <Typography className="dark:text-gray-300" variant="h5">
+                                  Fun Fact:
+                                </Typography>
+                                <Typography className="dark:text-gray-400" variant="paragraph">{bird.funfact}</Typography>
+                              </div>
+                            </div>
+                          </DialogBody>
+                          <DialogBody className="flex justify-left text-left -mt-2 -mb-8">
+                            <Typography variant="small" color="gray" className="dark:text-gray-400">
+                              Uploaded by {bird.profile_id.username} at{" "}
+                              {formatDateTime(bird.uploaded)}
+                            </Typography>
+                          </DialogBody>
+                          <DialogFooter>
+                            <Button
+                              variant="outlined"
+                              color="red"
+                              onClick={() => toggleOpen(bird.id)}
+                              className="mr-1"
+                            >
+                              <span>Close</span>
+                            </Button>
+                          </DialogFooter>
+                        </Dialog>
+                      </div>
+                    ) : (
+                      <>
+                        <td className={classes}>
+                          <div
+                            className={`flex flex-col place-items-left w-24 ${
+                              isTablet ? "hidden sm:flex" : ""
+                            }`}
+                          >
+                            <Chip
+                              variant="gradient"
+                              value={
+                                <Typography
+                                  variant="small"
+                                  color="white"
+                                  className="font-medium capitalize leading-none text-center dark:text-white"
+                                >
+                                  {bird.type_id.bird_type}
+                                </Typography>
+                              }
+                              color={chipColor}
+                            />
+                          </div>
+                        </td>
+                        <td className={classes}>
+                          <div
+                            className={`w-max ${
+                              isTablet ? "hidden sm:flex" : ""
+                            }`}
+                          >
+                            <Chip
+                              icon={
+                                <Avatar
+                                  size="xs"
+                                  variant="circular"
+                                  className="w-full h-full -translate-x-0.5"
+                                  alt={`${bird.profile_id.username}'s avatar`}
+                                  src={bird.profile_id.avatar_url}
+                                />
+                              }
+                              value={
+                                <Typography
+                                  variant="small"
+                                  color="white"
+                                  className="font-medium capitalize leading-none"
+                                >
+                                  {bird.profile_id.username}
+                                </Typography>
+                              }
+                              
+                              className="rounded-full py-1.5 bg-[#64748b]"
+                            />
+                          </div>
+                        </td>
+                        <td className={classes}>
+                          <div
+                            className={`w-max ${
+                              isTablet ? "hidden sm:flex" : ""
+                            }`}
+                          >
                             <Typography
                               variant="small"
                               color="blue-gray"
                               className="font-normal dark:text-gray-200"
                             >
-                              {bird.name}
-                            </Typography>
-                            <Typography
-                              variant="small"
-                              color="blue-gray"
-                              className="font-normal opacity-70 dark:text-gray-400"
-                            >
-                              {bird.genus} {bird.species}
+                              {formatDateTime(bird.uploaded)}
                             </Typography>
                           </div>
-                        </div>
-                      </td>
-                      <td className={`${isMobile ? "hidden" : ""} ${classes}`}>
-                        {bird.calls ? (
-                          <Button
-                            size="sm"
-                            className="rounded-full dark:bg-blue-600 dark:text-gray-300"
-                            color="light-blue"
-                            onClick={() => playAudio(bird.id, bird.calls)}
-                          >
-                            {isPlaying[bird.id] ? (
-                              <StopCircleIcon
-                                className="h-5 w-5"
-                                color="white"
-                              />
-                            ) : (
-                              <PlayCircleIcon
-                                className="h-5 w-5"
-                                color="white"
-                              />
-                            )}
-                          </Button>
-                        ) : (
-                          <Button
-                            size="sm"
-                            className="rounded-full"
-                            color="gray"
-                          >
-                            <NoSymbolIcon className="h-5 w-5" color="white" />
-                          </Button>
-                        )}
-                      </td>
-                      {isTablet ? (
-                        <div className="text-center leading-[100px]">
-                          <Button
-                            size="md"
-                            className="rounded-full"
-                            onClick={() => toggleOpen(bird.id)}
-                            variant="gradient"
-                            color="light-blue"
-                          >
-                            Show All
-                          </Button>
-                          <Dialog
-                            className="overflow-y-auto h-5/6 dark:bg-blue-gray-800"
-                            open={selectedBirdId === bird.id} // Compare with the selectedBirdId
-                            handler={() => toggleOpen(bird.id)}
-                            animate={{
-                              mount: { scale: 1, y: 0 },
-                              unmount: { scale: 0.9, y: -100 },
-                            }}
-                          >
-                            <DialogHeader className="flex justify-center items-center">
-                              <Typography className="dark:text-gray-100" variant="h3" color="blue-gray">
-                                {bird.name}
-                              </Typography>
-                            </DialogHeader>
-                            <DialogBody divider>
-                              <img
-                                src={bird.photo}
-                                size="xxl"
-                                className="h-auto object-cover object-center rounded-lg mb-2"
-                              />
-                            </DialogBody>
-                            <DialogBody divider>
-                              <div className="grid grid-cols-2 gap-4">
-                                <div className="col-span-2 space-y-2">
+                        </td>
+                        <td className={classes}>
+                          <React.Fragment>
+                            <Button
+                              onClick={() => toggleOpen(bird.id)}
+                              className="dark:bg-[#1e40af]"
+                            >
+                              Read more
+                            </Button>
+                            <Dialog
+                              className="overflow-y-auto h-fit dark:bg-blue-gray-800 "
+                              open={selectedBirdId === bird.id} // Compare with the selectedBirdId
+                              handler={() => toggleOpen(bird.id)}
+                              animate={{
+                                mount: { scale: 1, y: 0 },
+                                unmount: { scale: 0.9, y: -100 },
+                              }}
+                            >
+                              <DialogHeader className="dark:text-gray-200">{bird.name}</DialogHeader>
+                              <DialogBody divider>
+                                <React.Fragment>
                                   <Typography className="dark:text-gray-300" variant="h4">
                                     Appearance:
                                   </Typography>
-                                  <Typography className="dark:text-gray-400" variant="paragraph">
-                                    {bird.appearance}
-                                  </Typography>
+                                  <Typography className="dark:text-gray-400">{bird.appearance}</Typography>
                                   <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
                                   <Typography className="dark:text-gray-400">{bird.range}</Typography>
-                                  <Typography className="dark:text-gray-300" variant="h4">Habitat:</Typography>
+                                  <Typography className="dark:text-gray-300" variant="h4">
+                                    Habitat:
+                                  </Typography>
                                   <Typography className="dark:text-gray-400">{bird.habitat}</Typography>
-                                </div>
-                                <div className="col-span-2 space-y-2">
                                   <Typography className="dark:text-gray-300" variant="h4">
                                     Behavior:
                                   </Typography>
@@ -499,300 +740,53 @@ function BirdInformation() {
                                     Conservation:
                                   </Typography>
                                   <Typography className="dark:text-gray-400">{bird.conservation}</Typography>
-                                  <Typography className="dark:text-gray-300" variant="h4">
-                                    Fun Fact:
-                                  </Typography>
-                                  <Typography className="dark:text-gray-400">{bird.funfact}</Typography>
-                                </div>
-                              </div>
-                            </DialogBody>
-                            <DialogBody className="flex justify-left text-left -mt-2 -mb-8">
-                              <Typography className="dark:text-gray-400" variant="small" color="gray">
-                                Uploaded by {bird.profile_id.username} at{" "}
-                                {formatDateTime(bird.uploaded)}
-                              </Typography>
-                            </DialogBody>
-                            <DialogFooter>
-                              <Button
-                                variant="outlined"
-                                color="red"
-                                onClick={() => toggleOpen(bird.id)}
-                                className="mr-1"
-                              >
-                                <span>Close</span>
-                              </Button>
-                            </DialogFooter>
-                          </Dialog>
-                        </div>
-                      ) : isMobile ? (
-                        <div className="text-center leading-[100px]">
-                          <Button
-                            size="md"
-                            className="rounded-full"
-                            onClick={() => toggleOpen(bird.id)}
-                            variant="gradient"
-                            color="light-blue"
-                          >
-                            Show All
-                          </Button>
-                          <Dialog
-                            className="overflow-y-auto h-5/6 dark:bg-blue-gray-800"
-                            open={selectedBirdId === bird.id} // Compare with the selectedBirdId
-                            handler={() => toggleOpen(bird.id)}
-                            animate={{
-                              mount: { scale: 1, y: 0 },
-                              unmount: { scale: 0.9, y: -100 },
-                            }}
-                          >
-                            <DialogHeader className="flex justify-center items-center">
-                              <Typography
-                                variant="h3"
-                                color="blue-gray"
-                                className="mr-4 dark:text-gray-100"
-                              >
-                                {bird.name}
-                              </Typography>
-                              {bird.calls ? (
-                                <Button
-                                  size="sm"
-                                  className="rounded-full ml-4"
-                                  color="light-blue"
-                                  onClick={() => playAudio(bird.id, bird.calls)}
-                                >
-                                  {isPlaying[bird.id] ? (
-                                    <StopCircleIcon
-                                      className="h-5 w-5"
-                                      color="white"
-                                    />
-                                  ) : (
-                                    <PlayCircleIcon
-                                      className="h-5 w-5"
-                                      color="white"
-                                    />
-                                  )}
-                                </Button>
-                              ) : (
-                                <Button
-                                  size="sm"
-                                  className="rounded-full"
-                                  color="gray"
-                                >
-                                  <NoSymbolIcon
-                                    className="h-5 w-5"
-                                    color="white"
-                                  />
-                                </Button>
-                              )}
-                            </DialogHeader>
-                            <DialogBody divider>
-                              <img
-                                src={bird.photo}
-                                size="xxl"
-                                className="h-auto object-cover object-center rounded-lg mb-2"
-                              />
-                            </DialogBody>
-                            <DialogBody divider>
-                              <div className="grid grid-cols-2 gap-4">
-                                <div className="col-span-2 space-y-2">
-                                  <Typography className="dark:text-gray-300" variant="h4">
-                                    Appearance:
-                                  </Typography>
-                                  <Typography className="dark:text-gray-400" variant="paragraph">
-                                    {bird.appearance}
-                                  </Typography>
-                                  <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
-                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.range}</Typography>
-                                  <Typography className="dark:text-gray-300" variant="h4">Habitat:</Typography>
-                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.habitat}</Typography>
-                                </div>
-                                <div className="col-span-2 space-y-2">
-                                  <Typography className="dark:text-gray-300" variant="h4">
-                                    Behavior:
-                                  </Typography>
-                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.behavior}</Typography>
-                                  <Typography className="dark:text-gray-300" variant="h4">
-                                    Conservation:
-                                  </Typography>
-                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.conservation}</Typography>
                                   <Typography className="dark:text-gray-300" variant="h5">
                                     Fun Fact:
                                   </Typography>
-                                  <Typography className="dark:text-gray-400" variant="paragraph">{bird.funfact}</Typography>
-                                </div>
-                              </div>
-                            </DialogBody>
-                            <DialogBody className="flex justify-left text-left -mt-2 -mb-8">
-                              <Typography variant="small" color="gray" className="dark:text-gray-400">
-                                Uploaded by {bird.profile_id.username} at{" "}
-                                {formatDateTime(bird.uploaded)}
-                              </Typography>
-                            </DialogBody>
-                            <DialogFooter>
-                              <Button
-                                variant="outlined"
-                                color="red"
-                                onClick={() => toggleOpen(bird.id)}
-                                className="mr-1"
-                              >
-                                <span>Close</span>
-                              </Button>
-                            </DialogFooter>
-                          </Dialog>
-                        </div>
-                      ) : (
-                        <>
-                          <td className={classes}>
-                            <div
-                              className={`flex flex-col place-items-left w-24 ${
-                                isTablet ? "hidden sm:flex" : ""
-                              }`}
-                            >
-                              <Chip
-                                variant="gradient"
-                                value={
-                                  <Typography
-                                    variant="small"
-                                    color="white"
-                                    className="font-medium capitalize leading-none text-center dark:text-white"
-                                  >
-                                    {bird.type_id.bird_type}
-                                  </Typography>
-                                }
-                                color={chipColor}
-                              />
-                            </div>
-                          </td>
-                          <td className={classes}>
-                            <div
-                              className={`w-max ${
-                                isTablet ? "hidden sm:flex" : ""
-                              }`}
-                            >
-                              <Chip
-                                icon={
-                                  <Avatar
-                                    size="xs"
-                                    variant="circular"
-                                    className="w-full h-full -translate-x-0.5"
-                                    alt={`${bird.profile_id.username}'s avatar`}
-                                    src={bird.profile_id.avatar_url}
-                                  />
-                                }
-                                value={
-                                  <Typography
-                                    variant="small"
-                                    color="white"
-                                    className="font-medium capitalize leading-none"
-                                  >
-                                    {bird.profile_id.username}
-                                  </Typography>
-                                }
-                                
-                                className="rounded-full py-1.5 bg-[#64748b]"
-                              />
-                            </div>
-                          </td>
-                          <td className={classes}>
-                            <div
-                              className={`w-max ${
-                                isTablet ? "hidden sm:flex" : ""
-                              }`}
-                            >
-                              <Typography
-                                variant="small"
-                                color="blue-gray"
-                                className="font-normal dark:text-gray-200"
-                              >
-                                {formatDateTime(bird.uploaded)}
-                              </Typography>
-                            </div>
-                          </td>
-                          <td className={classes}>
-                            <React.Fragment>
-                              <Button
-                                onClick={() => toggleOpen(bird.id)}
-                                variant="gradient"
-                              >
-                                Read more
-                              </Button>
-                              <Dialog
-                                className="overflow-y-auto h-fit dark:bg-blue-gray-800 "
-                                open={selectedBirdId === bird.id} // Compare with the selectedBirdId
-                                handler={() => toggleOpen(bird.id)}
-                                animate={{
-                                  mount: { scale: 1, y: 0 },
-                                  unmount: { scale: 0.9, y: -100 },
-                                }}
-                              >
-                                <DialogHeader className="dark:text-gray-200">{bird.name}</DialogHeader>
-                                <DialogBody divider>
-                                  <React.Fragment>
-                                    <Typography className="dark:text-gray-300" variant="h4">
-                                      Appearance:
-                                    </Typography>
-                                    <Typography className="dark:text-gray-400">{bird.appearance}</Typography>
-                                    <Typography className="dark:text-gray-300" variant="h4">Range:</Typography>
-                                    <Typography className="dark:text-gray-400">{bird.range}</Typography>
-                                    <Typography className="dark:text-gray-300" variant="h4">
-                                      Habitat:
-                                    </Typography>
-                                    <Typography className="dark:text-gray-400">{bird.habitat}</Typography>
-                                    <Typography className="dark:text-gray-300" variant="h4">
-                                      Behavior:
-                                    </Typography>
-                                    <Typography className="dark:text-gray-400">{bird.behavior}</Typography>
-                                    <Typography className="dark:text-gray-300" variant="h4">
-                                      Conservation:
-                                    </Typography>
-                                    <Typography className="dark:text-gray-400">{bird.conservation}</Typography>
-                                    <Typography className="dark:text-gray-300" variant="h5">
-                                      Fun Fact:
-                                    </Typography>
-                                    <Typography className="dark:text-gray-400">{bird.funfact}</Typography>
-                                  </React.Fragment>
-                                </DialogBody>
-                                <DialogFooter>
-                                  <Button
-                                    variant="gradient"
-                                    color="blue"
-                                    onClick={() => toggleOpen(bird.id)}
-                                    className="mr-1"
-                                  >
-                                    <span>Close</span>
-                                  </Button>
-                                </DialogFooter>
-                              </Dialog>
-                            </React.Fragment>
-                          </td>
-                        </>
-                      )}
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </CardBody>
-        <CardFooter>
-          <ButtonGroup variant="outlined" className="dark:text-gray-300" color="blue-gray">
-            <IconButton onClick={prev}>
-              <ArrowLeftIcon strokeWidth={2} className="h-4 w-4 dark:text-gray-300" />
+                                  <Typography className="dark:text-gray-400">{bird.funfact}</Typography>
+                                </React.Fragment>
+                              </DialogBody>
+                              <DialogFooter>
+                                <Button
+                                  variant="gradient"
+                                  color="blue"
+                                  onClick={() => toggleOpen(bird.id)}
+                                  className="mr-1"
+                                >
+                                  <span>Close</span>
+                                </Button>
+                              </DialogFooter>
+                            </Dialog>
+                          </React.Fragment>
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      </CardBody>
+      <CardFooter>
+        <ButtonGroup variant="outlined" className="dark:text-gray-300" color="blue-gray">
+          <IconButton onClick={prev}>
+            <ArrowLeftIcon strokeWidth={2} className="h-4 w-4 dark:text-gray-300" />
+          </IconButton>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <IconButton
+              key={i}
+              {...getPaginationItemProps(i + 1)}
+              onClick={() => handlePaginationChange(i + 1)}
+            >
+              {i + 1}
             </IconButton>
-            {Array.from({ length: totalPages }, (_, i) => (
-              <IconButton
-                key={i}
-                {...getPaginationItemProps(i + 1)}
-                onClick={() => handlePaginationChange(i + 1)}
-              >
-                {i + 1}
-              </IconButton>
-            ))}
-            <IconButton onClick={next}>
-              <ArrowRightIcon strokeWidth={2} className="h-4 w-4 dark:text-gray-300" />
-            </IconButton>
-          </ButtonGroup>
-        </CardFooter>
-      </Card>
-    </Flowbite>
+          ))}
+          <IconButton onClick={next}>
+            <ArrowRightIcon strokeWidth={2} className="h-4 w-4 dark:text-gray-300" />
+          </IconButton>
+        </ButtonGroup>
+      </CardFooter>
+    </Card>
   );
 }
 

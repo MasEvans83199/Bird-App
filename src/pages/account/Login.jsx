@@ -52,7 +52,7 @@ function Login() {
           <div className="grid place-items-center">
             <CardHeader
               variant="gradient"
-              color="orange"
+              color="deep-orange"
               className="mb-4 grid h-20 place-items-center w-1/2"
             >
               <Typography variant="h2" className="place-items-center">

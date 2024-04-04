@@ -18,7 +18,7 @@ const SectionOne = () => {
           world. You will be able to see birds from all over the world!
         </Typography>
         <Link to="/photos">
-          <Button size="lg" color="light-blue">
+          <Button size="lg" color="light-blue" className="dark:bg-[#1e40af]">
             <span>Browse Gallery</span>
           </Button>
         </Link>

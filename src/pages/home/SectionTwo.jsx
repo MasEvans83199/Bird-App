@@ -47,7 +47,7 @@ function SectionTwo() {
             <Card className="border border-white/80 bg-white/80 dark:bg-blue-gray-700 dark:border-blue-gray-800 shadow-lg backdrop-blur-2xl backdrop-saturate-200">
               <CardHeader
                 shadow={false}
-                className="mx-6 -mb-3 grid h-12 w-12 place-items-center rounded-lg p-1 text-white shadow-lg"
+                className="mx-6 -mb-3 grid h-12 w-12 place-items-center rounded-lg p-1 text-white shadow-lg dark:bg-[#1e40af]"
                 color="light-blue"
               >
                 {icon}
