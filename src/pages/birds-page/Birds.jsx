@@ -250,7 +250,7 @@ function Birds() {
           <CardBody>
             <div className="grid place-items-end lg:mr-16 ">
               <Button
-                className="mt-4 mb-2 bg-[#1e40af]"
+                className="mt-4 mb-2 dark:bg-[#1e40af]"
                 onClick={toggleOpen}
               >
                 Upload Bird
@@ -282,13 +282,14 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
-                          className="dark:hidden"
+                          className="dark:text-gray-300"
                           label="Name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                         />
                         <BirdImage
                           url={null}
+                          className="dark:text-gray-300"
                           onUpload={handleUpload}
                           uploading={uploading}
                         />
@@ -296,6 +297,7 @@ function Birds() {
                           size="lg"
                           color="light-blue"
                           label="Genus"
+                          className="dark:text-gray-300"
                           value={genus}
                           onChange={(e) => setGenus(e.target.value)}
                         />
@@ -303,6 +305,7 @@ function Birds() {
                           size="lg"
                           color="light-blue"
                           label="Species"
+                          className="dark:text-gray-300"
                           value={species}
                           onChange={(e) => setSpecies(e.target.value)}
                         />
@@ -310,6 +313,7 @@ function Birds() {
                           size="lg"
                           color="light-blue"
                           type="file"
+                          className="dark:text-gray-300"
                           label="Bird Call (mp3)"
                           onChange={(e) => handleCallUpload(e)}
                         />
@@ -317,7 +321,7 @@ function Birds() {
                           label="Type"
                           value={selectedType}
                           onChange={(value) => setSelectedType(value)}
-                          className="max-h-96 overflow-y-auto"
+                          className="max-h-96 overflow-y-auto dark:text-gray-300"
                         >
                           {birdTypes.map((type) => (
                             <Option key={type} value={type}>
@@ -328,6 +332,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Appearance"
                           value={appearance}
                           onChange={(e) => setAppearance(e.target.value)}
@@ -337,6 +342,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Range"
                           value={range}
                           onChange={(e) => setRange(e.target.value)}
@@ -344,6 +350,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Habitat"
                           value={habitat}
                           onChange={(e) => setHabitat(e.target.value)}
@@ -351,6 +358,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Diet"
                           value={diet}
                           onChange={(e) => setDiet(e.target.value)}
@@ -358,6 +366,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Behavior"
                           value={behavior}
                           onChange={(e) => setBehavior(e.target.value)}
@@ -365,6 +374,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Conservation"
                           value={conservation}
                           onChange={(e) => setConservation(e.target.value)}
@@ -372,6 +382,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Fun Fact"
                           value={funFact}
                           onChange={(e) => setFunFact(e.target.value)}
@@ -465,19 +476,22 @@ function Birds() {
                       <div className="mb-1 grid grid-cols-2 gap-x-52 gap-y-2 mr-52">
                         <Input
                           size="lg"
-                          color={ colorTheme === 'dark' ? 'white' : 'light-blue'}
+                          color='light-blue'
+                          className="dark:text-gray-300"
                           label="Name"
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                         />
                         <BirdImage
                           url={null}
+                          className="dark:text-gray-300"
                           onUpload={handleUpload}
                           uploading={uploading}
                         />
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Genus"
                           value={genus}
                           onChange={(e) => setGenus(e.target.value)}
@@ -485,6 +499,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           type="file"
                           label="Bird Call (mp3)"
                           onChange={(e) => handleCallUpload(e)}
@@ -492,6 +507,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Species"
                           value={species}
                           onChange={(e) => setSpecies(e.target.value)}
@@ -499,6 +515,7 @@ function Birds() {
                         <Select
                           label="Type"
                           value={selectedType}
+                          className="dark:text-gray-300"
                           onChange={(value) => setSelectedType(value)}
                         >
                           {birdTypes.map((type) => (
@@ -510,6 +527,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Appearance"
                           value={appearance}
                           onChange={(e) => setAppearance(e.target.value)}
@@ -517,6 +535,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Range"
                           value={range}
                           onChange={(e) => setRange(e.target.value)}
@@ -524,6 +543,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Habitat"
                           value={habitat}
                           onChange={(e) => setHabitat(e.target.value)}
@@ -531,6 +551,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Diet"
                           value={diet}
                           onChange={(e) => setDiet(e.target.value)}
@@ -538,6 +559,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Behavior"
                           value={behavior}
                           onChange={(e) => setBehavior(e.target.value)}
@@ -545,6 +567,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Conservation"
                           value={conservation}
                           onChange={(e) => setConservation(e.target.value)}
@@ -552,6 +575,7 @@ function Birds() {
                         <Input
                           size="lg"
                           color="light-blue"
+                          className="dark:text-gray-300"
                           label="Fun Fact"
                           value={funFact}
                           onChange={(e) => setFunFact(e.target.value)}
@@ -570,7 +594,8 @@ function Birds() {
                                   id="horizontal-list-extinct"
                                   ripple={true}
                                   color="light-blue"
-                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25"
+                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25 dark:border-[#1e40af]/50 dark:bg-[#1e40af]/25 dark:text-gray-300"
+                                  iconProps={{ className: "dark:text-[#1e40af]" }}
                                   containerProps={{
                                     className: "p-0",
                                   }}
@@ -596,7 +621,8 @@ function Birds() {
                                   id="horizontal-list-endanger"
                                   ripple={true}
                                   color="light-blue"
-                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25"
+                                  className="hover:before:opacity-0 border-light-blue-400/50 bg-light-blue-400/25 dark:border-[#1e40af]/50 dark:bg-[#1e40af]/25 dark:text-gray-300"
+                                  iconProps={{ className: "dark:text-[#1e40af]" }}
                                   containerProps={{
                                     className: "p-0",
                                   }}
@@ -615,6 +641,7 @@ function Birds() {
                       </Card>
                       <Button
                         color="light-blue"
+                        className="dark:bg-[#1e40af]"
                         size="lg"
                         onClick={handleSubmit}
                       >

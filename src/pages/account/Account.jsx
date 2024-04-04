@@ -248,7 +248,7 @@ export default function Account({ session }) {
               session={session}
             />
             <div>
-              <label htmlFor="email">Email</label>
+              <label className="dark:text-gray-400" htmlFor="email">Email</label>
               <Input
                 id="email"
                 type="text"
@@ -279,29 +279,29 @@ export default function Account({ session }) {
           </form>
         </CardBody>
         <CardBody className="flex flex-col gap-4 border-b border-stone-800 pb-8">
-          <Typography variant="h3">My Uploads</Typography>
+          <Typography className="dark:text-gray-300" variant="h3">My Uploads</Typography>
           {birdList.length === 0 ? (
             <div className="text-center mt-4 border-x border-b">
-              <Typography variant="body" color="blue-gray" className="mx-2">
+              <Typography variant="body" color="blue-gray" className="mx-2 dark:text-gray-300">
                 No birds uploaded yet
               </Typography>
             </div>
           ) : (
-            <Card className="h-96 w-full overflow-y-scroll">
+            <Card className="h-96 w-full overflow-y-scroll dark:bg-blue-gray-500">
               <table className="w-full min-w-max table-auto text-left">
                 <thead className="sticky top-0 bg-white">
                   <tr>
                     {TABLE_HEAD.map((head, index) => (
                       <th
                         key={head}
-                        className={`border-b border-blue-gray-100 bg-blue-gray-50 p-4 ${
+                        className={`border-b border-blue-gray-100 bg-blue-gray-50 dark:bg-blue-gray-600 p-4 ${
                           index !== 0 && index !== 2 && isMobile ? "hidden" : ""
                         }`}
                       >
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-normal leading-none opacity-70"
+                          className="font-normal leading-none opacity-70 dark:text-gray-50"
                         >
                           {head}
                         </Typography>
@@ -317,7 +317,7 @@ export default function Account({ session }) {
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-normal"
+                            className="font-normal dark:text-gray-300"
                           >
                             {name}
                           </Typography>
@@ -327,6 +327,7 @@ export default function Account({ session }) {
                             size="sm"
                             color="red"
                             onClick={() => deleteBird(id)}
+                            className="dark:bg-[#991b1b]"
                           >
                             Delete
                           </Button>
@@ -342,7 +343,7 @@ export default function Account({ session }) {
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-normal"
+                            className="font-normal dark:text-gray-200"
                           >
                             {name}
                           </Typography>
@@ -351,16 +352,17 @@ export default function Account({ session }) {
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-normal"
+                            className="font-normal dark:text-gray-300"
                           >
                             {formatDateTime(uploaded)}
                           </Typography>
                         </td>
-                        <td className="p-4 border-b border-blue-gray-50">
+                        <td className="p-4 border-b border-blue-gray-50 dark:border-transparent">
                           <Button
                             size="sm"
                             color="red"
                             onClick={() => deleteBird(id)}
+                            className="dark:bg-[#b91c1c]"
                           >
                             Delete
                           </Button>
@@ -374,29 +376,29 @@ export default function Account({ session }) {
           )}
         </CardBody>
         <CardBody className="flex flex-col gap-4">
-          <Typography variant="h3">My Posts</Typography>
+          <Typography className="dark:text-gray-300" variant="h3">My Posts</Typography>
           {forumPosts.length === 0 ? (
             <div className="text-center mt-4 border-x border-b">
-              <Typography variant="body" color="blue-gray" className="mx-2">
+              <Typography variant="body" color="blue-gray" className="mx-2 dark:text-gray-300">
                 No submitted posts yet
               </Typography>
             </div>
           ) : (
-            <Card className="h-96 w-full overflow-y-scroll">
+            <Card className="h-auto w-full overflow-y-scroll dark:bg-blue-gray-500">
               <table className="w-full max-w-fit table-auto text-left">
                 <thead className="sticky top-0 bg-white z-10">
                   <tr>
                     {TABLE2_HEAD.map((head2, index) => (
                       <th
                         key={head2}
-                        className={`border-b border-blue-gray-100 bg-blue-gray-50 p-4 ${
+                        className={`border-b border-blue-gray-100 bg-blue-gray-50 dark:bg-blue-gray-600 p-4 ${
                           index !== 0 && index !== 3 && isMobile ? "hidden" : ""
                         }`}
                       >
                         <Typography
                           variant="small"
                           color="blue-gray"
-                          className="font-normal leading-none opacity-70"
+                          className="font-normal leading-none opacity-70 dark:text-gray-100"
                         >
                           {head2}
                         </Typography>
@@ -412,16 +414,17 @@ export default function Account({ session }) {
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-normal"
+                            className="font-normal dark:text-gray-300"
                           >
                             {post.text}
                           </Typography>
                         </td>
-                        <td className="p-4 border-b border-blue-gray-50">
+                        <td className="p-4 border-b border-blue-gray-50 dark:border-transparent">
                           <Button
                             size="sm"
                             color="red"
                             onClick={() => deletePost(post.id)}
+                            className="dark:bg-[#b91c1c]"
                           >
                             Delete
                           </Button>
@@ -437,7 +440,7 @@ export default function Account({ session }) {
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-normal"
+                            className="font-normal dark:text-gray-300"
                           >
                             {post.text}
                           </Typography>
@@ -446,7 +449,7 @@ export default function Account({ session }) {
                           <Typography
                             variant="small"
                             color="blue-gray"
-                            className="font-normal"
+                            className="font-normal dark:text-gray-300"
                           >
                             {formatDateTime(post.created_at)}
                           </Typography>
@@ -456,22 +459,22 @@ export default function Account({ session }) {
                             size="sm"
                             color="light-blue"
                             onClick={() => handleOpen(post.id)}
-                            className=""
+                            className="dark:bg-[#2563eb]"
                           >
                             Show
                           </Button>
                           <Dialog
                             open={selectedPost === post.id}
                             handler={() => handleOpen(post.id)}
-                            className="overflow-auto max-h-full"
+                            className="overflow-auto max-h-full dark:bg-blue-gray-800"
                           >
-                            <DialogHeader>{post.text}</DialogHeader>
+                            <DialogHeader className="dark:text-gray-100">{post.text}</DialogHeader>
                             <DialogBody divider>
                               <img
                                 src={post.image_url}
                                 className="rounded-xl min-w-[200px] mb-4"
                               ></img>
-                              <Typography variant="paragraph">
+                              <Typography className="dark:text-gray-300" variant="paragraph">
                                 {post.details}
                               </Typography>
                             </DialogBody>
@@ -492,6 +495,7 @@ export default function Account({ session }) {
                             size="sm"
                             color="red"
                             onClick={() => deletePost(post.id)}
+                            className="dark:bg-[#b91c1c]"
                           >
                             Delete
                           </Button>

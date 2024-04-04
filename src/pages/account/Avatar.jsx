@@ -99,6 +99,7 @@ export default function profilePicture({ size, onUpload, session }) {
           size="md"
           variant="gradient"
           disabled={uploading}
+          className="dark:bg-[#2563eb]"
           onClick={() => {
             // Trigger the file input when the button is clicked
             document.getElementById("userAvatarInput").click();

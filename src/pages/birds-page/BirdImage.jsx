@@ -40,8 +40,8 @@ function BirdImage({ size, url, onUpload, uploading }) {
     <div>
       <div style={{ width: size, position: "relative" }}>
         <Input
-          className=""
           color="light-blue"
+          className="dark:text-gray-300"
           label="Bird Photo"
           type="file"
           id="single"

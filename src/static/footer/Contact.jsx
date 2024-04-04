@@ -52,7 +52,7 @@ function Contact() {
           <form onSubmit={sendEmail} className="w-3/5 mx-auto" ref={form}>
             <div className="mb-4">
               <Input
-                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 dark:focus:border-gray-300"
+                className="border-2 border-gray-300 px-3 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 dark:focus:border-gray-300 dark:text-gray-300"
                 type="text"
                 label="Your name"
                 name="user_name"

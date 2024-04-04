@@ -280,20 +280,20 @@ function Posts({ session }) {
             style={{ marginLeft: calculateIndentation(reply.level) }}
           >
             <div className="flex items-center">
-              <Typography variant="small" color="gray" className="text-left ml-2">
+              <Typography variant="small" color="gray" className="text-left ml-2 dark:text-gray-400">
                 <span>
                   {reply.profile_id.username ? reply.profile_id.username : getTempUsername(reply.profile_id.id)}
                 </span>
-                <span className="ml-2">
+                <span className="ml-2 dark:text-gray-400">
                   {formatDateTime(reply.created_at)}
                 </span>
               </Typography>
               <PaperAirplaneIcon
-                className="h-4 w-4 ml-2"
+                className="h-4 w-4 ml-2 dark:text-gray-400 cursor-pointer hover:text-light-blue-500"
                 onClick={() => toggleReplyTextarea(reply.id)}
               />
             </div>
-            <Typography variant="paragraph" className="text-left mb-2 ml-2">
+            <Typography variant="paragraph" className="text-left mb-2 ml-2 dark:text-gray-300">
               {reply.reply}
             </Typography>
             <Collapse open={openReplies[reply.id]}>
@@ -307,7 +307,7 @@ function Posts({ session }) {
                   label={`Reply to ${reply.profile_id.username}'s post...`}
                 />
                 <div className="grid place-items-center">
-                  <Button color="light-blue" type="submit">
+                  <Button color="light-blue" type="submit" className="dark:bg-[#2563eb]">
                     Reply
                   </Button>
                 </div>
@@ -327,8 +327,8 @@ function Posts({ session }) {
 
   return (
     <div className="grid place-items-center">
-      <Card className="mt-12 sm:w-full lg:w-1/2 md:w-full">
-        <CardHeader>
+      <Card className="mt-12 sm:w-full lg:w-1/2 md:w-full dark:bg-blue-gray-700">
+        <CardHeader className="dark:bg-blue-gray-600">
           <div className="flex items-center ml-4 my-2">
             <div className="flex items-center mr-4">
               {post.user_id.avatar_url ? (
@@ -337,17 +337,17 @@ function Posts({ session }) {
                 <Avatar className="mr-2" size="sm" src={defaultAvatar} />
               )}
               {post.user_id.username ? (
-                <Typography variant="small" color="black">
+                <Typography  className="dark:text-gray-300" variant="small" color="black">
                   {post.user_id.username}
                 </Typography>
               ) : (
-                <Typography variant="small" color="black">
+                <Typography  className="dark:text-gray-300" variant="small" color="black">
                   {generateTempUsername()}
                 </Typography>
               )}
             </div>
             <div className="flex-1 text-right mr-2">
-              <Typography variant="small">
+              <Typography  className="dark:text-gray-400" variant="small">
                 {formatDateTime(post.created_at)}
               </Typography>
             </div>
@@ -356,7 +356,7 @@ function Posts({ session }) {
 
         <CardBody>
           <div className="flex-grow flex items-center justify-center">
-            <Typography variant="h4" color="black" className="text-center">
+            <Typography variant="h4" color="black" className="text-center dark:text-white">
               {post.text}
             </Typography>
           </div>
@@ -371,7 +371,7 @@ function Posts({ session }) {
           )}
           <Typography
             variant="paragraph"
-            className="mt-4 text-left"
+            className="mt-4 text-left dark:text-gray-300"
           >
             {post.details}
           </Typography>
@@ -387,7 +387,7 @@ function Posts({ session }) {
               label="Reply to this post..."
             />
             <div className="grid place-items-center">
-              <Button color="light-blue" type="submit">
+              <Button color="light-blue" className="dark:bg-[#2563eb]" type="submit">
                 Reply
               </Button>
             </div>
@@ -396,15 +396,15 @@ function Posts({ session }) {
         <CardBody className="grid place-items-start border-t">
           {replies.length > 0 ? (
             <div>
-              <Typography variant="h5">Replies:</Typography>
+              <Typography className="dark:text-gray-300" variant="h5">Replies:</Typography>
               {renderReplies(replies)}
             </div>
           ) : (
             <div>
-              <Typography variant="h5">Replies:</Typography>
+              <Typography className="dark:text-gray-300" variant="h5">Replies:</Typography>
               <Typography
                 variant="small"
-                className="text-left mb-2 mt-6 ml-4"
+                className="text-left mb-2 mt-6 ml-4 dark:text-gray-400"
               >
                 No replies yet.
               </Typography>

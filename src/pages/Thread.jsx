@@ -380,7 +380,7 @@ function Thread({ session }) {
           </Typography>
         </CardHeader>
       </div>
-      <Button className="mt-4 mb-8" color="light-blue" onClick={handleOpen}>
+      <Button className="mt-4 mb-8 dark:bg-[#2563eb]" color="light-blue" onClick={handleOpen}>
         New Post
       </Button>
       <Dialog
@@ -389,7 +389,7 @@ function Thread({ session }) {
         handler={handleOpen}
         className="bg-transparent shadow-none"
       >
-        <Card className="mx-auto w-full max-w-[24rem]">
+        <Card className="mx-auto w-full max-w-[24rem] dark:bg-blue-gray-800">
           <CardHeader
             variant="gradient"
             color="deep-orange"
@@ -401,13 +401,13 @@ function Thread({ session }) {
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
             <div className="flex items-center">
-              <Typography className="mr-2 ml-8">Text Post</Typography>
+              <Typography className="mr-2 ml-8 dark:text-gray-100">Text Post</Typography>
               <Switch
                 color="light-blue"
                 checked={isImagePost}
                 onChange={handleSwitchChange}
               />
-              <Typography className="ml-2">Image Post</Typography>
+              <Typography className="ml-2 dark:text-gray-100">Image Post</Typography>
             </div>
             {isImagePost ? (
               <form className="space-y-4" onSubmit={handleSubmit}>
@@ -421,7 +421,7 @@ function Thread({ session }) {
                 <Input
                   size="lg"
                   color="light-blue"
-                  className="bg-slate-300"
+                  className="bg-slate-300 dark:text-gray-100"
                   value={text}
                   onChange={(e) => handleTextChange(e)}
                   label="Title your post"
@@ -436,7 +436,7 @@ function Thread({ session }) {
                   label="Post details go here...(optional)"
                 />
                 <div className="grid place-items-center">
-                  <Button color="light-blue" type="submit">
+                  <Button color="light-blue" className="dark:bg-[#2563eb]" type="submit">
                     Submit Post
                   </Button>
                 </div>
@@ -461,7 +461,7 @@ function Thread({ session }) {
                   label="Post details go here...(optional)"
                 />
                 <div className="grid place-items-center">
-                  <Button color="light-blue" type="submit">
+                  <Button color="light-blue"  className="dark:bg-[#2563eb]" type="submit">
                     Submit Post
                   </Button>
                 </div>
@@ -474,7 +474,7 @@ function Thread({ session }) {
         {currentPosts.map((post) => (
           <TimelineItem
             key={post.id}
-            className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-gray-900/5 mb-8 w-full h-auto"
+            className="relative rounded-xl border border-blue-gray-50 bg-white py-3 pl-4 pr-8 shadow-lg shadow-gray-900/5 dark:bg-blue-gray-700 dark:border-blue-gray-800 mb-8 w-full h-auto"
           >
             <TimelineHeader className="pb-3 ml-2 border-b flex">
               <div className="flex items-center flex-col">
@@ -488,17 +488,17 @@ function Thread({ session }) {
                   </TimelineIcon>
                 )}
                 {post.user_id.username ? (
-                  <Typography variant="small" color="black">
+                  <Typography className="dark:text-gray-400" variant="small" color="black">
                     {post.user_id.username}
                   </Typography>
                 ) : (
-                  <Typography variant="small" color="black">
+                  <Typography className="dark:text-gray-400" variant="small" color="black">
                     {generateTempUsername()}
                   </Typography>
                 )}
               </div>
               <div className="flex-grow flex items-center justify-center">
-                <Typography variant="h4" color="black" className="text-center">
+                <Typography variant="h4" color="black" className="text-center dark:text-white">
                   {post.text}
                 </Typography>
               </div>
@@ -513,7 +513,7 @@ function Thread({ session }) {
               )}
               <Typography
                 variant="paragraph"
-                className="mt-4 text-left line-clamp-4"
+                className="mt-4 text-left line-clamp-4 dark:text-gray-200"
               >
                 {post.details}
               </Typography>
@@ -521,7 +521,7 @@ function Thread({ session }) {
             <div className="grid place-items-center mt-4 border-t border-stone-800">
               <TimelineBody>
                 <div>
-                  <Typography variant="small">
+                  <Typography className="dark:text-gray-300" variant="small">
                     {formatDateTime(post.created_at)}
                   </Typography>
                 </div>
@@ -529,7 +529,7 @@ function Thread({ session }) {
                   <Button
                     size="sm"
                     color="light-blue"
-                    className="mt-4"
+                    className="mt-4 dark:bg-[#2563eb]"
                   >
                     View Post
                   </Button>
