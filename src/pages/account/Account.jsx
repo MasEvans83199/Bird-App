@@ -241,7 +241,7 @@ export default function Account({ session }) {
           </Typography>
         </CardHeader>
         <CardBody className="flex flex-col gap-4 border-b border-stone-800 pb-8">
-          <form onSubmit={updateProfile} className="">
+          <form onSubmit={updateProfile}>
             <Avatar
               url={avatarUrl}
               onUpload={updateProfile}
@@ -258,9 +258,10 @@ export default function Account({ session }) {
               />
             </div>
             <div className="mt-4">
+              <label className="dark:text-gray-400" htmlFor="username">Username</label>
               <Input
                 id="username"
-                label="Username"
+                className="dark:text-gray-300"
                 type="text"
                 required
                 value={username || ""}
@@ -268,7 +269,7 @@ export default function Account({ session }) {
               />
             </div>
             <ButtonGroup variant="text" color="light-blue" className="mt-4">
-              <Button type="submit" handler={updateProfile} disabled={loading}>
+              <Button type="submit" disabled={loading}>
                 {loading ? "Loading ..." : "Update"}
               </Button>
               <Button onClick={() => supabase.auth.signOut()}>Sign Out</Button>
