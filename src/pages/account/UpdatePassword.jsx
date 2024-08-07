@@ -37,7 +37,7 @@ function UpdatePassword() {
   };
 
   useEffect(() => {
-    // Your useEffect logic here, if needed
+    // Empty for now
   }, []);
 
   return (
