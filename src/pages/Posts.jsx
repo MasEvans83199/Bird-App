@@ -317,8 +317,7 @@ function Posts({ session }) {
   };
   
   const calculateIndentation = (level) => {
-    // Set the base indentation and increase it for each level of nesting
-    const baseIndentation = 2; // You can adjust this value based on your design
+    const baseIndentation = 2; 
     return `${baseIndentation + level * 2}rem`;
   };
 
