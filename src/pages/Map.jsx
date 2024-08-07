@@ -38,7 +38,6 @@ function Globe() {
         // longitude latitude
         { location: [37.7595, -122.4367], size: 0.03 },
         { location: [40.7128, -74.006], size: 0.1 },
-        // Add more markers as needed
       ],
       onRender: (state) => {
         // Called on every animation frame.
@@ -49,10 +48,10 @@ function Globe() {
       onClick: (event) => {
         // Handle click on the globe
         const { lng, lat } = event;
-        const region = getRegionFromCoordinates(lng, lat); // Implement this function to determine the region from coordinates
+        const region = getRegionFromCoordinates(lng, lat);
         const birdsInRegion = getBirdsInRegion(region);
         if (birdsInRegion.length > 0) {
-          const selectedBirdId = birdsInRegion[0].id; // Choose the first bird for simplicity
+          const selectedBirdId = birdsInRegion[0].id; 
           setSelectedBirdId(selectedBirdId);
         }
       },
@@ -97,9 +96,7 @@ function Globe() {
   };
 
   const getRegionFromCoordinates = (lng, lat) => {
-    // Implement this function to determine the region from coordinates
-    // Your implementation should map the longitude and latitude to one of the regions defined in the birds table.
-    // Return the matching region name.
+    // Region function
   };
 
   return (
