@@ -200,7 +200,6 @@ export default function Account({ session }) {
       .eq("id", id)
       .then((response) => {
         alert("Bird deleted:", response);
-        // If you want to update the UI after successful deletion, you can fetch the updated birdList here.
       })
       .catch((error) => {
         alert("Error deleting row:", error);
@@ -214,7 +213,6 @@ export default function Account({ session }) {
       .eq("id", id)
       .then((response) => {
         console.log("Post deleted:", response);
-        // If you want to update the UI after successful deletion, you can fetch the updated birdList here.
       })
       .catch((error) => {
         alert("Error deleting row:", error);
