@@ -18,7 +18,6 @@ const DarkModeProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
-    // Apply dark mode to the entire app (you may need to adjust this based on your styling approach)
     document.body.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
